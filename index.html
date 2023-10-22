@@ -50,6 +50,49 @@
             padding: 0.5rem;
             font-size: 0.8rem;
         }
+
+        .button {
+            background-color: #007BFF;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .dialog {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .dialog-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+        }
+
+        .close-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -59,6 +102,7 @@
     </header>
     <div>
         <ul>
+            <li><a href="https://www.seu.edu.cn/" target="_blank">东南大学</a></li>
             <li><a href="https://phylab.seu.edu.cn/" target="_blank">物理实验中心</a></li>
             <li><a href="https://cse.seu.edu.cn/" target="_blank">计算机学院官网</a></li>
             <li><a href="https://jwc.seu.edu.cn/" target="_blank">教务处</a></li>
@@ -68,11 +112,29 @@
             <li><a href="http://newxk.urp.seu.edu.cn" target="_blank">选课</a></li>
             <li><a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fehall.seu.edu.cn%2Fjwapp%2Fsys%2FbykbseuMobile%2F*default%2Findex.do" target="_blank">课表查询</a></li>
         </ul>
+        <button class="button" onclick="showDialog()">作者的话</button>
+        <div id="dialog" class="dialog">
+            <div class="dialog-content">
+                <h2>作者的话</h2>
+                <p style="text-align: center;">做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个html，后来想想决定干脆做一个在线的网页，方便所有人，顺便也加入了课表查看功能（东大信息化真的难用），虽然也要输入账号密码，但是可以在浏览器里保存密码，也算是曲线救国吧... ... <br><br>
+                    如果你有别的想要加入的网站，请发送邮件到：<a href="mailto:1575373800@qq.com">1575373800@qq.com</a>（也可以直接加我的QQ）</p>
+                <button class="close-button" onclick="hideDialog()">关闭</button>
+            </div>
+        </div>
     </div>
     <footer>
         来自22级不掉头发总队-小黑菌
     </footer>
+
+    <script>
+        function showDialog() {
+            document.getElementById("dialog").style.display = "block";
+        }
+
+        function hideDialog() {
+            document.getElementById("dialog").style.display = "none";
+        }
+    </script>
 </body>
 
 </html>
-
