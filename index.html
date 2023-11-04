@@ -4,111 +4,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>东大计软智常用网址——万圣节快乐</title>
+    <title>东大计软智常用网址</title>
     <style>
         body {
-    font-family: 'Arial', sans-serif;
-    background-color: #1a1a1a;
-    color: #ff9900;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-header {
-    background-color: #ff9900;
-    color: #1a1a1a;
-    padding: 1rem;
-    text-align: center;
-    width: 99%;
-}
+        header {
+            background-color: #445437;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            width: 99%;
+        }
 
-.link-box {
-    background-color: #333;
-    padding: 20px;
-    border: 1px solid #ff9900;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px rgba(255, 153, 0, 0.2);
-    transition: box-shadow 0.3s ease;
-    margin: 10px;
-    text-align: center;
-    width: 60%;
-}
+        .link-box {
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+            margin: 10px;
+            text-align: center;
+            width: 60%;
+        }
 
-.link-box a {
-    text-decoration: none;
-    color: #ff9900;
-    font-weight: bold;
-}
+        .link-box a {
+            text-decoration: none;
+            color: #445437;
+            font-weight: bold;
+        }
+        a:hover {
+  	    color: #ffcc00;
+	}
 
-a:hover {
-    color: #ffcc00;
-}
+        footer {
+            background-color: #445437;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
 
-footer {
-    background-color: #ff9900;
-    color: #1a1a1a;
-    padding: 1rem;
-    text-align: center;
-    width: 100%;
-    margin-top: auto;
-}
+        .button {
+            background-color: #445437;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.button {
-    background-color: #ff9900;
-    color: #1a1a1a;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+        .button:hover {
+            background-color: #2980b9;
+        }
 
-.button:hover {
-    background-color: #ffcc00;
-}
+        .dialog {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            top: 50%;
+            width: 70%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
 
-.dialog {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    top: 50%;
-    width: 70%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
+        .close-button {
+            background-color: #445437;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-.close-button {
-    background-color: #ff9900;
-    color: #1a1a1a;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.close-button:hover {
-    background-color: #ffcc00;
-}
-
+        .close-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <h1>东大计软智常用网址（万圣节特供）</h1>
+        <h1>东大计软智常用网址</h1>
     </header>
     <div class="link-box">
         <a href="https://www.seu.edu.cn/" target="_blank">东南大学</a>
@@ -150,7 +147,8 @@ footer {
     <button class="button" onclick="showDialog()">作者的话</button>
     <div id="dialog" class="dialog">
         <h2>作者的话</h2>
-        <p>同志们万圣节快乐哟哟哟</p>
+        <p>做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个html，后来想想决定干脆做一个在线的网页，方便所有人，顺便也加入了课表查看功能（东大信息化真的难用），本网站推荐使用外部浏览器打开，虽然这个网站也要输入账号密码，但是可以在浏览器里保存密码，也算是曲线救国吧... ...顺便一提，如果某个网站打不开，大概率是这个网站又崩了（手动狗头） <br><br>
+            如果你有别的想要加入的网站或者有想反馈的BUG，请发送邮件到：<a href="mailto:1575373800@qq.com">1575373800@qq.com</a>（欢迎在留言箱里给作者留言）</p>
         <button class="close-button" onclick="hideDialog()">关闭</button>
     </div>
     <div></div>
