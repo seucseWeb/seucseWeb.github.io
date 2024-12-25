@@ -4,24 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>东大计软智常用网址</title>
+    <title>东大计软智常用网址 - 圣诞节版</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+            background-color: #fff5e1;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-image: url('snowflake-bg.png');
+            background-size: cover;
         }
 
         header {
-            background-color: #445437;
+            background-color: #c0392b;
             color: white;
             padding: 1rem;
             text-align: center;
             width: 99%;
+            position: relative;
+        }
+
+        header img {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
         }
 
         .link-box {
@@ -38,24 +48,42 @@
 
         .link-box a {
             text-decoration: none;
-            color: #445437;
+            color: #c0392b;
             font-weight: bold;
         }
-        a:hover {
-  	    color: #ffcc00;
-	}
+
+        .link-box a:hover {
+            color: #ffcc00;
+        }
 
         footer {
-            background-color: #445437;
+            background-color: #c0392b;
             color: white;
             padding: 1rem;
             text-align: center;
             width: 100%;
             margin-top: auto;
+            position: relative;
+        }
+
+        footer:before {
+            content: "🎄";
+            font-size: 2rem;
+            position: absolute;
+            left: 20px;
+            top: -10px;
+        }
+
+        footer:after {
+            content: "🎄";
+            font-size: 2rem;
+            position: absolute;
+            right: 20px;
+            top: -10px;
         }
 
         .button {
-            background-color: #445437;
+            background-color: #c0392b;
             color: white;
             padding: 0.5rem 1rem;
             border: none;
@@ -84,7 +112,7 @@
         }
 
         .close-button {
-            background-color: #445437;
+            background-color: #c0392b;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -96,9 +124,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-.header-image {
-            margin-right: 0px; /* 设置左外边距为20像素，可以根据需要调整偏移量 */
-        }
+
         .close-button:hover {
             background-color: #2980b9;
         }
@@ -107,8 +133,9 @@
 
 <body>
     <header>
-        <img src="头秃.png" alt="东大计软智常用网址" width="75px" class="header-image">
-    <h1>东大计软智常用网址</h1>
+    <img src="圣诞快乐.png" alt="东大计软智常用网址" width="1000px" class="header-image">
+        
+    <h1>东大计软智常用网址 🎅 圣诞节版</h1>
     </header>
     <div class="link-box">
         <a href="https://www.seu.edu.cn/" target="_blank">东南大学</a>
@@ -197,8 +224,6 @@
     <footer>
         来自22级不掉头发总队-小黑菌
     </footer>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
     <script>
         function showDialog() {
             document.getElementById("dialog").style.display = "block";
@@ -209,8 +234,5 @@
         }
     </script>
 </body>
-
-</html>
-
 
 </html>
