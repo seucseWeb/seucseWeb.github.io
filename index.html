@@ -133,13 +133,33 @@
             background-color: #2980b9;
         }
 
-        #searchInput {
+        #search-container {
             margin: 20px 0;
+            width: 100%;
+            max-width: 450px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchInput {
             padding: 0.5rem 1rem;
             border: 1px solid #ddd;
             border-radius: 5px;
-            width: 100%;
-            max-width: 450px;
+            flex-grow: 1;
+        }
+
+        #searchButton {
+            background-color: #445437;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #searchButton:hover {
+            background-color: #2980b9;
         }
 
         @media (min-width: 768px) {
@@ -161,7 +181,12 @@
         <img src="头秃.png" alt="东大计软智常用网址" width="75px" class="header-image">
         <h1>东大计软智常用网址</h1>
     </header>
-    <input type="search" id="searchInput" placeholder="搜索网址...">
+    <div id="search-container">
+        <input type="search" id="searchInput" placeholder="搜索网址...">
+        <button id="searchButton" onclick="bingSearch()">
+            <i class="fas fa-search"></i> 搜索
+        </button>
+    </div>
     <div class="link-box">
         <a href="https://www.seu.edu.cn/" target="_blank">
             <i class="fas fa-university"></i> 东南大学
@@ -307,6 +332,14 @@
 
         function hideDialog() {
             document.getElementById("dialog").classList.remove("show");
+        }
+
+        function bingSearch() {
+            const keyword = document.getElementById('searchInput').value;
+            if (keyword) {
+                const bingUrl = `https://www.bing.com/search?q=${encodeURIComponent(keyword)}`;
+                window.open(bingUrl, '_blank');
+            }
         }
     </script>
 </body>
