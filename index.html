@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>东大计软智常用网址</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f9f9f9;
             margin: 0;
             padding: 0;
@@ -21,7 +23,14 @@
             color: white;
             padding: 1rem;
             text-align: center;
-            width: 99%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-image {
+            margin-right: 10px;
         }
 
         .link-box {
@@ -30,20 +39,34 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
             margin: 10px;
             text-align: center;
-            width: 60%;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .link-box:hover {
+            box-shadow: 0px 0px 15px 0px rgba(68, 84, 55, 0.2);
+            transform: scale(1.02);
         }
 
         .link-box a {
             text-decoration: none;
             color: #445437;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        a:hover {
-  	    color: #ffcc00;
-	}
+
+        .link-box a i {
+            margin-right: 5px;
+        }
+
+        .link-box a:hover {
+            color: #ffcc00;
+        }
 
         footer {
             background-color: #445437;
@@ -69,18 +92,27 @@
         }
 
         .dialog {
-            display: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -50%) scale(0.95);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
             position: fixed;
             z-index: 1;
             left: 50%;
             top: 50%;
             width: 70%;
-            transform: translate(-50%, -50%);
             background-color: rgba(255, 255, 255, 0.9);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
             text-align: center;
+        }
+
+        .dialog.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+            transition-delay: 0s;
         }
 
         .close-button {
@@ -96,11 +128,30 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-.header-image {
-            margin-right: 0px; /* 设置左外边距为20像素，可以根据需要调整偏移量 */
-        }
+
         .close-button:hover {
             background-color: #2980b9;
+        }
+
+        #searchInput {
+            margin: 20px 0;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        @media (min-width: 768px) {
+            .link-box {
+                width: 45%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .link-box {
+                width: 30%;
+            }
         }
     </style>
 </head>
@@ -108,87 +159,126 @@
 <body>
     <header>
         <img src="头秃.png" alt="东大计软智常用网址" width="75px" class="header-image">
-    <h1>东大计软智常用网址</h1>
+        <h1>东大计软智常用网址</h1>
     </header>
+    <input type="search" id="searchInput" placeholder="搜索网址...">
     <div class="link-box">
-        <a href="https://www.seu.edu.cn/" target="_blank">东南大学</a>
-    </div>
-    <div class="link-box">
-        <a href="https://cs.seu.edu.cn" target="_blank">计算机学院官网</a>
-    </div>
-    <div class="link-box">
-        <a href="https://jwc.seu.edu.cn/" target="_blank">教务处</a>
+        <a href="https://www.seu.edu.cn/" target="_blank">
+            <i class="fas fa-university"></i> 东南大学
+        </a>
     </div>
     <div class="link-box">
-        <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank">网上办事大厅</a>
+        <a href="https://cs.seu.edu.cn" target="_blank">
+            <i class="fas fa-laptop-code"></i> 计算机学院官网
+        </a>
     </div>
     <div class="link-box">
-        <a href="http://i.seu.edu.cn/index.html#/" target="_blank">东大信息平台</a>
+        <a href="https://jwc.seu.edu.cn/" target="_blank">
+            <i class="fas fa-graduation-cap"></i> 教务处
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank">数智东南-资讯</a>
+        <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank">
+            <i class="fas fa-desktop"></i> 网上办事大厅
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank">绩点计算器（简易版）</a>
+        <a href="http://i.seu.edu.cn/index.html#/" target="_blank">
+            <i class="fas fa-info-circle"></i> 东大信息平台
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank">薪火计划</a>
-    </div>
-<div class="link-box">
-        <a href="https://labor.seu.edu.cn/" target="_blank">劳动教育与实践</a>
-    </div>
-    <div class="link-box">
-        <a href="https://cwc.seu.edu.cn/main.psp" target="_blank">财务处</a>
+        <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank">
+            <i class="fas fa-newspaper"></i> 数智东南-资讯
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://cvs.seu.edu.cn/" target="_blank">东大云课堂</a>
-    </div>
-	<div class="link-box">
-        <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank">第二课堂</a>
-    </div>
-<div class="link-box">
-        <a href="http://www.lib.seu.edu.cn/" target="_blank">图书馆</a>
+        <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank">
+            <i class="fas fa-calculator"></i> 绩点计算器（简易版）
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://phylab.seu.edu.cn/" target="_blank">物理实验中心</a>
+        <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank">
+            <i class="fas fa-fire"></i> 薪火计划
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://nic.seu.edu.cn/" target="_blank">网络与信息中心</a>
+        <a href="https://labor.seu.edu.cn/" target="_blank">
+            <i class="fas fa-hammer"></i> 劳动教育与实践
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://pan.seu.edu.cn/" target="_blank">东大文档云</a>
+        <a href="https://cwc.seu.edu.cn/main.psp" target="_blank">
+            <i class="fas fa-money-bill-wave"></i> 财务处
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://mail.seu.edu.cn" target="_blank">东大邮箱</a>
+        <a href="https://cvs.seu.edu.cn/" target="_blank">
+            <i class="fas fa-video"></i> 东大云课堂
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank">教务处办事平台</a>
+        <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank">
+            <i class="fas fa-award"></i> 第二课堂
+        </a>
     </div>
     <div class="link-box">
-        <a href="http://newxk.urp.seu.edu.cn" target="_blank">选课</a>
+        <a href="http://www.lib.seu.edu.cn/" target="_blank">
+            <i class="fas fa-book"></i> 图书馆
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://seucseweb.github.io/15puzzle" target="_blank">15puzzle小游戏</a>
-        <a href="https://seucseweb.github.io/N-Puzzles" target="_blank">N-puzzles小游戏</a>
+        <a href="https://phylab.seu.edu.cn/" target="_blank">
+            <i class="fas fa-flask"></i> 物理实验中心
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://seucseweb.github.io/Minesweeper/" target="_blank">扫雷小游戏</a>
+        <a href="https://nic.seu.edu.cn/" target="_blank">
+            <i class="fas fa-network-wired"></i> 网络与信息中心
+        </a>
     </div>
     <div class="link-box">
-        <a href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" target="_blank">留言给作者</a>
+        <a href="https://pan.seu.edu.cn/" target="_blank">
+            <i class="fas fa-cloud"></i> 东大文档云
+        </a>
     </div>
-
-     <div id="bottom-outer">
-            <div id="bottom-inner">
-
-                <a href="http://CeylanLiu.github.io"> © 小黑菌</a>
-                <br><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-                | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
-            </div>
-
+    <div class="link-box">
+        <a href="https://mail.seu.edu.cn" target="_blank">
+            <i class="fas fa-envelope"></i> 东大邮箱
+        </a>
+    </div>
+    <div class="link-box">
+        <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank">
+            <i class="fas fa-tasks"></i> 教务处办事平台
+        </a>
+    </div>
+    <div class="link-box">
+        <a href="http://newxk.urp.seu.edu.cn" target="_blank">
+            <i class="fas fa-pencil-alt"></i> 选课
+        </a>
+    </div>
+    <div class="link-box">
+        <a href="https://seucseweb.github.io/N-Puzzles" target="_blank">
+            <i class="fas fa-gamepad"></i> N-puzzles小游戏
+        </a>
+    </div>
+    <div class="link-box">
+        <a href="https://seucseweb.github.io/Minesweeper/" target="_blank">
+            <i class="fas fa-bomb"></i> 扫雷小游戏
+        </a>
+    </div>
+    <div class="link-box">
+        <a href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" target="_blank">
+            <i class="fas fa-comment-dots"></i> 留言给作者
+        </a>
+    </div>
+    <div id="bottom-outer">
+        <div id="bottom-inner">
+            <a href="http://CeylanLiu.github.io"> © 小黑菌</a>
+            <br><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+            | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
         </div>
-
-
+    </div>
     <button class="button" onclick="showDialog()">作者的话</button>
     <div id="dialog" class="dialog">
         <h2>作者的话</h2>
@@ -196,25 +286,30 @@
             如果你有别的想要加入的网站或者有想反馈的BUG，请发送邮件到：<a href="mailto:1575373800@qq.com">1575373800@qq.com</a>（欢迎在留言箱里给作者留言）</p>
         <button class="close-button" onclick="hideDialog()">关闭</button>
     </div>
-    <div></div>
-
     <footer>
         来自22级不掉头发总队-小黑菌
     </footer>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-</script>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+    </script>
     <script>
+        const links = document.querySelectorAll('.link-box');
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const keyword = e.target.value.toLowerCase();
+            links.forEach(link => {
+                const text = link.textContent.toLowerCase();
+                link.style.display = text.includes(keyword) ? 'block' : 'none';
+            });
+        });
+
         function showDialog() {
-            document.getElementById("dialog").style.display = "block";
+            document.getElementById("dialog").classList.add("show");
         }
 
         function hideDialog() {
-            document.getElementById("dialog").style.display = "none";
+            document.getElementById("dialog").classList.remove("show");
         }
     </script>
 </body>
 
 </html>
-
-
-</html>
+    
