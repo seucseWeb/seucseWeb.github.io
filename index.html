@@ -2,347 +2,396 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>东大计软智常用网址</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>东大计软智常用网址</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        header {
-            background-color: #445437;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    header {
+      background-color: #445437;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-        .header-image {
-            margin-right: 10px;
-        }
+    .header-image {
+      margin-right: 10px;
+    }
 
-        .link-box {
-            background-color: white;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-            margin: 10px;
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-        }
+    /* 搜索区 */
+    #search-container {
+      margin: 2rem 0;
+      width: 100%;
+      max-width: 450px;
+      display: flex;
+      gap: 10px;
+    }
 
-        .link-box:hover {
-            box-shadow: 0px 0px 15px 0px rgba(68, 84, 55, 0.2);
-            transform: scale(1.02);
-        }
+    #searchInput {
+      padding: 0.5rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      flex-grow: 1;
+    }
 
-        .link-box a {
-            text-decoration: none;
-            color: #445437;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    #searchButton {
+      background-color: #445437;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        .link-box a i {
-            margin-right: 5px;
-        }
+    #searchButton:hover {
+      background-color: #2980b9;
+    }
 
-        .link-box a:hover {
-            color: #ffcc00;
-        }
+    /* 链接 Grid 容器 */
+    #links-container {
+      width: 100%;
+      max-width: 1200px;
+    }
 
-        footer {
-            background-color: #445437;
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            width: 100%;
-            margin-top: auto;
-        }
+    .link-box {
+      background-color: white;
+      padding: 1.5rem;
+      border: 1px solid #ddd;
+      border-radius: 0.625rem;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 6rem;
+    }
 
-        .button {
-            background-color: #445437;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    .link-box:hover {
+      box-shadow: 0 0 15px rgba(68, 84, 55, 0.2);
+      transform: scale(1.02);
+    }
 
-        .button:hover {
-            background-color: #2980b9;
-        }
+    .link-box a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #445437;
+      font-weight: bold;
+      line-height: 1.5;
+    }
 
-        .dialog {
-            opacity: 0;
-            visibility: hidden;
-            transform: translate(-50%, -50%) scale(0.95);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
-            position: fixed;
-            z-index: 1;
-            left: 50%;
-            top: 50%;
-            width: 70%;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.2);
-            text-align: center;
-        }
+    .link-box a i {
+      margin-right: 0.5rem;
+      font-size: 1.25rem;
+    }
 
-        .dialog.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, -50%) scale(1);
-            transition-delay: 0s;
-        }
+    .link-box a:hover {
+      color: #ffcc00;
+    }
 
-        .close-button {
-            background-color: #445437;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin-top: 20px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    /* 作者对话框 */
+    .dialog {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(-50%, -50%) scale(0.95);
+      transition: opacity 0.3s ease, transform 0.3s ease, visibility 0s linear 0.3s;
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      top: 50%;
+      width: 80%;
+      max-width: 320px;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
 
-        .close-button:hover {
-            background-color: #2980b9;
-        }
+    .dialog.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+      transition-delay: 0s;
+    }
 
-        #search-container {
-            margin: 20px 0;
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            gap: 10px;
-        }
+    .close-button {
+      background-color: #445437;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
 
-        #searchInput {
-            padding: 0.5rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            flex-grow: 1;
-        }
+    .close-button:hover {
+      background-color: #2980b9;
+    }
 
-        #searchButton {
-            background-color: #445437;
-            color: white;
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    /* 作者的话 按钮 */
+    .button {
+      background-color: #445437;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0.5rem 0;
+    }
 
-        #searchButton:hover {
-            background-color: #2980b9;
-        }
+    .button:hover {
+      background-color: #2980b9;
+    }
 
-        @media (min-width: 768px) {
-            .link-box {
-                width: 45%;
-            }
-        }
+    /* 底部访问量 */
+    #bottom-outer {
+      font-size: 0.75rem;
+      color: #666;
+      text-align: center;
+      margin: 0.5rem 0 0;
+    }
 
-        @media (min-width: 1024px) {
-            .link-box {
-                width: 30%;
-            }
-        }
-    </style>
+    #bottom-outer a {
+      color: #445437;
+      text-decoration: none;
+    }
+
+    /* 底部版权 */
+    footer {
+      background-color: #445437;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* 手机端：4 列紧凑、图标上文字下 */
+    @media (max-width: 640px) {
+      #links-container {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 0.25rem !important;
+        padding: 0 0.25rem;
+      }
+      .link-box {
+        padding: 0.5rem;
+        min-height: 5rem;
+      }
+      .link-box a {
+        flex-direction: column;
+      }
+      .link-box a i {
+        font-size: 1.6rem;
+        line-height: 1.6rem;
+        height: 1.6rem;
+        margin: 0 0 0.15rem;
+      }
+      .link-box a span {
+        display: block;
+        font-size: 0.6rem;
+        line-height: 1.2;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <header>
-        <img src="头秃.png" alt="东大计软智常用网址" width="75px" class="header-image">
-        <h1>东大计软智常用网址</h1>
-    </header>
-    <div id="search-container">
-        <input type="search" id="searchInput" placeholder="搜索网址...">
-        <button id="searchButton" onclick="bingSearch()">
-            <i class="fas fa-search"></i> 搜索
-        </button>
+  <header>
+    <img src="头秃.png" alt="东大计软智常用网址" width="75" class="header-image"/>
+    <h1>东大计软智常用网址</h1>
+  </header>
+
+  <div id="search-container">
+    <input type="search" id="searchInput" placeholder="搜索网址..."/>
+    <button id="searchButton" onclick="bingSearch()">
+      <i class="fas fa-search"></i> 搜索
+    </button>
+  </div>
+
+  <div id="links-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6">
+    <!-- 示例条目 -->
+    <div class="link-box">
+      <a href="https://www.seu.edu.cn/" target="_blank">
+        <i class="fas fa-university"></i>
+        <span>东南大学</span>
+      </a>
     </div>
     <div class="link-box">
-        <a href="https://www.seu.edu.cn/" target="_blank">
-            <i class="fas fa-university"></i> 东南大学
-        </a>
+      <a href="https://cs.seu.edu.cn" target="_blank">
+        <i class="fas fa-laptop-code"></i>
+        <span>计算机学院官网</span>
+      </a>
     </div>
     <div class="link-box">
-        <a href="https://cs.seu.edu.cn" target="_blank">
-            <i class="fas fa-laptop-code"></i> 计算机学院官网
-        </a>
+      <a href="https://jwc.seu.edu.cn/" target="_blank">
+        <i class="fas fa-graduation-cap"></i>
+        <span>教务处</span>
+      </a>
     </div>
     <div class="link-box">
-        <a href="https://jwc.seu.edu.cn/" target="_blank">
-            <i class="fas fa-graduation-cap"></i> 教务处
-        </a>
-    </div>
-    <div class="link-box">
-        <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank">
-            <i class="fas fa-desktop"></i> 网上办事大厅
-        </a>
+      <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank">
+        <i class="fas fa-desktop"></i>
+        <span>网上办事大厅</span>
+      </a>
     </div>
     <div class="link-box">
         <a href="http://i.seu.edu.cn/index.html#/" target="_blank">
-            <i class="fas fa-info-circle"></i> 东大信息平台
+            <i class="fas fa-info-circle"></i>  <span>东大信息平台</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank">
-            <i class="fas fa-newspaper"></i> 数智东南-资讯
+            <i class="fas fa-newspaper"></i> <span>数智东南-资讯</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank">
-            <i class="fas fa-calculator"></i> 绩点计算器（简易版）
+            <i class="fas fa-calculator"></i> <span>绩点计算器（简易版）</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank">
-            <i class="fas fa-fire"></i> 薪火计划
+            <i class="fas fa-fire"></i> <span>薪火计划</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://labor.seu.edu.cn/" target="_blank">
-            <i class="fas fa-hammer"></i> 劳动教育与实践
+            <i class="fas fa-hammer"></i> <span>劳动教育与实践</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://cwc.seu.edu.cn/main.psp" target="_blank">
-            <i class="fas fa-money-bill-wave"></i> 财务处
+            <i class="fas fa-money-bill-wave"></i> <span>财务处</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://cvs.seu.edu.cn/" target="_blank">
-            <i class="fas fa-video"></i> 东大云课堂
+            <i class="fas fa-video"></i> <span>东大云课堂</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank">
-            <i class="fas fa-award"></i> 第二课堂
+            <i class="fas fa-award"></i> <span>第二课堂</span>
         </a>
     </div>
     <div class="link-box">
         <a href="http://www.lib.seu.edu.cn/" target="_blank">
-            <i class="fas fa-book"></i> 图书馆
+            <i class="fas fa-book"></i> <span>图书馆</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://phylab.seu.edu.cn/" target="_blank">
-            <i class="fas fa-flask"></i> 物理实验中心
+            <i class="fas fa-flask"></i> <span>物理实验中心</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://nic.seu.edu.cn/" target="_blank">
-            <i class="fas fa-network-wired"></i> 网络与信息中心
+            <i class="fas fa-network-wired"></i> <span>网络与信息中心</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://pan.seu.edu.cn/" target="_blank">
-            <i class="fas fa-cloud"></i> 东大文档云
+            <i class="fas fa-cloud"></i> <span>东大文档云</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://mail.seu.edu.cn" target="_blank">
-            <i class="fas fa-envelope"></i> 东大邮箱
+            <i class="fas fa-envelope"></i> <span>东大邮箱</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank">
-            <i class="fas fa-tasks"></i> 教务处办事平台
+            <i class="fas fa-tasks"></i> <span>教务处办事平台</span>
         </a>
     </div>
     <div class="link-box">
         <a href="http://newxk.urp.seu.edu.cn" target="_blank">
-            <i class="fas fa-pencil-alt"></i> 选课
+            <i class="fas fa-pencil-alt"></i> <span>选课</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://seucseweb.github.io/N-Puzzles" target="_blank">
-            <i class="fas fa-gamepad"></i> N-puzzles小游戏
+            <i class="fas fa-gamepad"></i> <span>N-puzzles小游戏</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://seucseweb.github.io/Minesweeper/" target="_blank">
-            <i class="fas fa-bomb"></i> 扫雷小游戏
+            <i class="fas fa-bomb"></i> <span>扫雷小游戏</span>
         </a>
     </div>
     <div class="link-box">
         <a href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" target="_blank">
-            <i class="fas fa-comment-dots"></i> 留言给作者
+            <i class="fas fa-comment-dots"></i> <span>留言给作者</span>
         </a>
     </div>
-    <div id="bottom-outer">
-        <div id="bottom-inner">
-            <a href="http://CeylanLiu.github.io"> © 小黑菌</a>
-            <br><span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            | 本站访客数<span id="busuanzi_value_site_uv"></span>人次
-        </div>
-    </div>
-    <button class="button" onclick="showDialog()">作者的话</button>
-    <div id="dialog" class="dialog">
-        <h2>作者的话</h2>
-        <p>做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个html，后来想想决定干脆做一个在线的网页，方便所有人，顺便也加入了课表查看功能（东大信息化真的难用），本网站推荐使用外部浏览器打开，虽然这个网站也要输入账号密码，但是可以在浏览器里保存密码，也算是曲线救国吧... ...顺便一提，如果某个网站打不开，大概率是这个网站又崩了（手动狗头） <br><br>
-            如果你有别的想要加入的网站或者有想反馈的BUG，请发送邮件到：<a href="mailto:1575373800@qq.com">1575373800@qq.com</a>（欢迎在留言箱里给作者留言）</p>
-        <button class="close-button" onclick="hideDialog()">关闭</button>
-    </div>
-    <footer>
-        来自22级不掉头发总队-小黑菌
-    </footer>
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
-    </script>
-    <script>
-        const links = document.querySelectorAll('.link-box');
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const keyword = e.target.value.toLowerCase();
-            links.forEach(link => {
-                const text = link.textContent.toLowerCase();
-                link.style.display = text.includes(keyword) ? 'block' : 'none';
-            });
-        });
+  </div>
 
-        function showDialog() {
-            document.getElementById("dialog").classList.add("show");
-        }
+  <!-- 底部访问量与作者链接 -->
+  <div id="bottom-outer">
+    <a href="http://CeylanLiu.github.io">© 小黑菌</a> |
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次 |
+    访客数 <span id="busuanzi_value_site_uv"></span> 人
+  </div>
 
-        function hideDialog() {
-            document.getElementById("dialog").classList.remove("show");
-        }
+  <!-- 作者的话 按钮与对话框 -->
+  <button class="button" onclick="showDialog()">作者的话</button>
+  <div id="dialog" class="dialog">
+    <h2>作者的话</h2>
+    <p>
+      做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个 html，
+      后来想干脆做一个在线的网页……
+      如果有想加入的网站或 BUG，请邮件至
+      <a href="mailto:1575373800@qq.com">1575373800@qq.com</a>。
+    </p>
+    <button class="close-button" onclick="hideDialog()">关闭</button>
+  </div>
 
-        function bingSearch() {
-            const keyword = document.getElementById('searchInput').value;
-            if (keyword) {
-                const bingUrl = `https://www.bing.com/search?q=${encodeURIComponent(keyword)}`;
-                window.open(bingUrl, '_blank');
-            }
-        }
-    </script>
+  <footer>
+    来自22级不掉头发总队-小黑菌
+  </footer>
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script>
+    const links = document.querySelectorAll('.link-box');
+    document.getElementById('searchInput').addEventListener('input', e => {
+      const kw = e.target.value.toLowerCase();
+      links.forEach(link => {
+        link.style.display = link.textContent.toLowerCase().includes(kw) ? '' : 'none';
+      });
+    });
+
+    function showDialog() {
+      document.getElementById('dialog').classList.add('show');
+    }
+    function hideDialog() {
+      document.getElementById('dialog').classList.remove('show');
+    }
+    function bingSearch() {
+      const kw = document.getElementById('searchInput').value;
+      if (kw) window.open(`https://www.bing.com/search?q=${encodeURIComponent(kw)}`, '_blank');
+    }
+  </script>
 </body>
 
 </html>
-    
