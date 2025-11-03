@@ -1235,6 +1235,7 @@
       setInterval(updateTime, 1000);
       addScrollAnimation();
       setupDragAndDrop();
+      setupCardClick();
       updateSearchStats();
     });
 
@@ -1538,6 +1539,31 @@
       if (!isDragMode) return;
       this.classList.remove('dragging', 'drop-zone');
       draggedElement = null;
+    }
+
+    // 设置卡片点击事件
+    function setupCardClick() {
+      const cards = document.querySelectorAll('.link-card');
+      
+      cards.forEach(card => {
+        card.addEventListener('click', function(e) {
+          // 如果点击的是收藏按钮，不触发跳转
+          if (e.target.closest('.favorite-btn')) {
+            return;
+          }
+          
+          // 如果点击的是链接本身，交给默认行为处理
+          if (e.target.closest('a')) {
+            return;
+          }
+          
+          // 否则触发链接点击
+          const link = card.querySelector('a');
+          if (link) {
+            link.click();
+          }
+        });
+      });
     }
 
     // 模态框
