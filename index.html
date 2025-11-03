@@ -1175,7 +1175,7 @@
         <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
           <li>✨ 改进的站内搜索，无需跳转</li>
           <li>🎯 最近访问记录</li>
-          <li>🔄 拖拽排序功能</li>
+          <li>🔄 拖拽排序功能（持久化保存）</li>
           <li>🎨 增强的视觉效果</li>
         </ul>
         <p style="margin-bottom: 1rem;">
@@ -1187,6 +1187,9 @@
           </a>
         </p>
         <p style="margin-top: 1rem; text-align: center;">
+          <button onclick="resetCustomOrder()" style="background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-right: 1rem;">
+            🔄 重置排序
+          </button>
           <a href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" 
              target="_blank" 
              style="color: var(--secondary-color); text-decoration: none; font-weight: 500;">
@@ -1218,6 +1221,7 @@
     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     let recentVisits = JSON.parse(localStorage.getItem('recentVisits') || '[]');
     let currentCategory = 'all';
+    let customOrder = JSON.parse(localStorage.getItem('customOrder') || '[]');
 
     let isDragMode = false;
     let draggedElement = null;
@@ -1226,6 +1230,7 @@
     document.addEventListener('DOMContentLoaded', function() {
 
       initializeFavorites();
+      applyCustomOrder();
       updateTime();
       setInterval(updateTime, 1000);
       addScrollAnimation();
@@ -1487,7 +1492,46 @@
         container.insertBefore(draggedElement, this);
       }
       
-      showToast('位置已交换 ✨');
+      // 保存新的排序
+      saveCustomOrder();
+      showToast('位置已交换并保存 ✨');
+    }
+
+    // 应用自定义排序
+    function applyCustomOrder() {
+      if (customOrder.length === 0) return;
+      
+      const container = document.getElementById('links-container');
+      const cards = Array.from(container.children);
+      
+      // 按自定义顺序重新排列卡片
+      customOrder.forEach((title, index) => {
+        const card = cards.find(card => 
+          card.querySelector('.link-title').textContent === title
+        );
+        if (card && card !== container.children[index]) {
+          container.insertBefore(card, container.children[index]);
+        }
+      });
+    }
+    
+    // 保存自定义排序
+    function saveCustomOrder() {
+      const container = document.getElementById('links-container');
+      const cards = Array.from(container.children);
+      
+      customOrder = cards.map(card => 
+        card.querySelector('.link-title').textContent
+      );
+      
+      localStorage.setItem('customOrder', JSON.stringify(customOrder));
+    }
+    
+    // 重置自定义排序
+    function resetCustomOrder() {
+      localStorage.removeItem('customOrder');
+      customOrder = [];
+      location.reload(); // 重新加载页面恢复原始顺序
     }
 
     function handleDragEnd(e) {
