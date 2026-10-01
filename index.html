@@ -473,6 +473,84 @@ body {
   color: var(--green);
 }
 
+/* 列表/网格排列切换 */
+.layout-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: var(--paper-hi);
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: .78rem;
+  transition: color .15s var(--ease), border-color .15s var(--ease);
+}
+
+.layout-toggle:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+/* 网格排列模式（横向，一行多个） */
+.sec-rows.grid-mode {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.sec-rows.grid-mode .link-card {
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  background: var(--paper-hi);
+  overflow: hidden;
+}
+
+.sec-rows.grid-mode .link-card:hover {
+  border-color: var(--ink-3);
+  box-shadow: 0 2px 10px rgba(28, 26, 23, .06);
+}
+
+.sec-rows.grid-mode .link-card a {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 13px 14px;
+  min-height: 0;
+  height: 100%;
+}
+
+.sec-rows.grid-mode .row-no {
+  order: 1;
+}
+
+.sec-rows.grid-mode .row-main {
+  order: 2;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  width: 100%;
+}
+
+.sec-rows.grid-mode .row-domain {
+  order: 3;
+  margin-top: 5px;
+}
+
+.sec-rows.grid-mode .visit-badge {
+  order: 4;
+  margin-top: 3px;
+}
+
+.sec-rows.grid-mode .favorite-btn {
+  top: 8px;
+  right: 8px;
+  transform: none;
+}
+
 .search-stats {
   flex: none;
   margin-left: auto;
@@ -1400,6 +1478,9 @@ body {
       <p class="search-stats" id="searchStats" style="display: none;">
         找到 <span id="searchCount">0</span> 个相关站点
       </p>
+      <button class="layout-toggle" id="layoutToggle" onclick="toggleLayout()" title="切换排列方式">
+        <i class="fas fa-table-cells-large"></i>
+      </button>
       <a class="ver-switch" href="./old.html" onclick="try{localStorage.setItem('seucseweb_version','old')}catch(e){}" title="切换至旧版">
         <i class="fas fa-clock-rotate-left"></i>旧版
       </a>
@@ -1822,6 +1903,9 @@ body {
 
       initializeFavorites();
       renderVisitBadges();
+      let savedLayout = 'list';
+      try { savedLayout = localStorage.getItem('seucseweb_layout') || 'list'; } catch (e) {}
+      applyLayout(savedLayout);
       applyCustomOrder();
       setupMinibar();
       updateTime();
@@ -2065,6 +2149,29 @@ body {
     function railCategory(el) {
       ensureAllView();
       railMark(el);
+    }
+
+    // 列表/网格排列切换
+    function applyLayout(mode) {
+      const grid = mode === 'grid';
+      document.querySelectorAll('.sec-rows').forEach(r => r.classList.toggle('grid-mode', grid));
+      const btn = document.getElementById('layoutToggle');
+      if (btn) {
+        btn.innerHTML = grid
+          ? '<i class="fas fa-list"></i>'
+          : '<i class="fas fa-table-cells-large"></i>';
+        btn.title = grid ? '切换为列表排列' : '切换为网格排列';
+      }
+    }
+
+    function toggleLayout() {
+      let next = 'grid';
+      try {
+        next = (localStorage.getItem('seucseweb_layout') || 'list') === 'grid' ? 'list' : 'grid';
+        localStorage.setItem('seucseweb_layout', next);
+      } catch (e) {}
+      applyLayout(next);
+      showToast(next === 'grid' ? '已切换为网格排列' : '已切换为列表排列');
     }
 
     function isRecent(card) {
