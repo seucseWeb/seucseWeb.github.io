@@ -67,19 +67,69 @@ body {
   line-height: 1.6;
   color: var(--ink);
   background-color: var(--paper);
-  /* 纸张细纹 + 稿纸格线 + 品牌色渐晕（自上而下） */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.38'/%3E%3C/svg%3E"),
-    repeating-linear-gradient(0deg, rgba(28, 26, 23, .062) 0 1px, transparent 1px 26px),
-    repeating-linear-gradient(90deg, rgba(28, 26, 23, .062) 0 1px, transparent 1px 26px),
-    radial-gradient(1000px 420px at 12% -4%, rgba(11, 110, 79, .17), transparent 62%),
-    radial-gradient(860px 380px at 90% -6%, rgba(194, 64, 42, .13), transparent 62%);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
   background: rgba(11, 110, 79, .16);
+}
+
+
+/* 固定背景层：不随前景滚动 */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: var(--paper);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.38'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(0deg, rgba(28, 26, 23, .062) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(28, 26, 23, .062) 0 1px, transparent 1px 26px);
+}
+
+/* 背景装饰：仅在宽屏两侧留白充足时出现 */
+.bg-motto,
+.bg-pine,
+.bg-emblem {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  display: none;
+}
+
+@media (min-width: 1420px) {
+  .bg-motto {
+    display: block;
+    left: 40px;
+    top: 40%;
+    height: min(300px, 38vh);
+    opacity: .15;
+  }
+
+  .bg-pine {
+    display: block;
+    left: 16px;
+    bottom: 3vh;
+    width: 128px;
+    opacity: .22;
+  }
+
+  .bg-emblem {
+    display: block;
+    right: 6px;
+    top: 18%;
+    width: 144px;
+    opacity: .14;
+  }
+
+  /* 只取校标上半，如浮出纸面的印痕 */
+  .bg-emblem img {
+    width: 100%;
+    display: block;
+    clip-path: inset(0 0 52% 0);
+  }
 }
 
 :focus-visible {
@@ -183,16 +233,11 @@ body {
 /* 校训挂轴（止于至善） */
 .mast-scroll {
   position: absolute;
-  right: 40px;
+  right: 44px;
   top: 50%;
   transform: translateY(-50%);
-  width: 66px;
-  height: 204px;
-  padding: 10px 8px;
-  background: var(--paper-hi);
-  border: 1px solid var(--line-soft);
-  border-radius: 3px;
-  box-shadow: 0 2px 12px rgba(28, 26, 23, .08);
+  width: 64px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1258,6 +1303,13 @@ body {
 </head>
 
 <body>
+  <!-- 固定背景层：纸面、稿纸格与校园元素（不随前景滚动） -->
+  <div class="bg" aria-hidden="true">
+    <img class="bg-motto" src="assets/seu-motto-v.svg" alt="">
+    <img class="bg-pine" src="assets/seu-liuchao.svg" alt="">
+    <div class="bg-emblem"><img src="assets/seu-emblem.svg" alt=""></div>
+  </div>
+
   <!-- 置顶迷你导航（滚动后出现） -->
   <div class="minibar" id="minibar">
     <div class="minibar-inner">
