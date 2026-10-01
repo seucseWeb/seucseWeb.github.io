@@ -1207,10 +1207,10 @@ body {
     <div class="minibar-inner">
       <span class="minibar-brand"><span class="seal-mini">印</span><span class="brand-text">计软智常用网址</span></span>
       <nav class="minibar-links">
-        <a href="#sec-academic">学术</a>
-        <a href="#sec-service">服务</a>
-        <a href="#sec-resource">资源</a>
-        <a href="#sec-graduate">研究生</a>
+        <a href="#sec-academic" onclick="ensureAllView()">学术</a>
+        <a href="#sec-service" onclick="ensureAllView()">服务</a>
+        <a href="#sec-resource" onclick="ensureAllView()">资源</a>
+        <a href="#sec-graduate" onclick="ensureAllView()">研究生</a>
       </nav>
     </div>
   </div>
@@ -1259,10 +1259,10 @@ body {
       <p class="rail-label">目录 Index</p>
       <nav class="rail-nav" id="railNav">
         <a class="rail-item active" data-rail="all" onclick="railAll(this)">全部<span class="n">21</span></a>
-        <a class="rail-item" data-rail="academic" href="#sec-academic" onclick="railMark(this)">学术<span class="n">5</span></a>
-        <a class="rail-item" data-rail="service" href="#sec-service" onclick="railMark(this)">服务<span class="n">7</span></a>
-        <a class="rail-item" data-rail="resource" href="#sec-resource" onclick="railMark(this)">资源<span class="n">7</span></a>
-        <a class="rail-item" data-rail="graduate" href="#sec-graduate" onclick="railMark(this)">研究生<span class="n">2</span></a>
+        <a class="rail-item" data-rail="academic" href="#sec-academic" onclick="railCategory(this)">学术<span class="n">5</span></a>
+        <a class="rail-item" data-rail="service" href="#sec-service" onclick="railCategory(this)">服务<span class="n">7</span></a>
+        <a class="rail-item" data-rail="resource" href="#sec-resource" onclick="railCategory(this)">资源<span class="n">7</span></a>
+        <a class="rail-item" data-rail="graduate" href="#sec-graduate" onclick="railCategory(this)">研究生<span class="n">2</span></a>
         <div class="rail-sep"></div>
         <a class="rail-item" data-rail="favorite" onclick="filterCategory('favorite'); railMark(this)">收藏<span class="n">★</span></a>
         <a class="rail-item" data-rail="recent" onclick="filterCategory('recent'); railMark(this)">最近<span class="n">↺</span></a>
@@ -1895,6 +1895,19 @@ body {
       filterCategory('all');
       railMark(el);
       scrollToTop();
+    }
+
+    // 从收藏/最近视图离开，恢复全部分区（修复点锚点后页面空白）
+    function ensureAllView() {
+      if (currentCategory !== 'all') {
+        filterCategory('all');
+      }
+    }
+
+    // 目录轨分类锚点：先复位视图再跳转
+    function railCategory(el) {
+      ensureAllView();
+      railMark(el);
     }
 
     function isRecent(card) {
