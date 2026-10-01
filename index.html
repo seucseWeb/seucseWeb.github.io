@@ -4,6 +4,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script>
+    try {
+      if (localStorage.getItem('seucseweb_version') === 'old') { location.replace('./old.html'); }
+    } catch (e) {}
+  </script>
   <meta name="description" content="东南大学计算机科学与工程学院常用网址导航，提供便捷的校内网站访问入口"/>
   <meta name="keywords" content="东南大学,SEU,计软智,网址导航,教务处,选课系统,图书馆"/>
   <meta name="author" content="小黑菌"/>
@@ -433,6 +438,37 @@ body {
 .search-btn:hover {
   background: var(--green);
   color: #fff;
+}
+
+.ver-switch {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-2);
+  text-decoration: none;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  padding: 6px 11px;
+  background: var(--paper-hi);
+  transition: color .15s var(--ease), border-color .15s var(--ease);
+}
+
+.ver-switch i {
+  font-size: .72rem;
+  color: var(--ink-3);
+  transition: color .15s var(--ease);
+}
+
+.ver-switch:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.ver-switch:hover i {
+  color: var(--green);
 }
 
 .search-stats {
@@ -1319,6 +1355,7 @@ body {
         <a href="#sec-service" onclick="ensureAllView()">服务</a>
         <a href="#sec-resource" onclick="ensureAllView()">资源</a>
         <a href="#sec-graduate" onclick="ensureAllView()">研究生</a>
+        <a href="./old.html" onclick="try{localStorage.setItem('seucseweb_version','old')}catch(e){}">旧版</a>
       </nav>
     </div>
   </div>
@@ -1361,6 +1398,9 @@ body {
       <p class="search-stats" id="searchStats" style="display: none;">
         找到 <span id="searchCount">0</span> 个相关站点
       </p>
+      <a class="ver-switch" href="./old.html" onclick="try{localStorage.setItem('seucseweb_version','old')}catch(e){}" title="切换至旧版">
+        <i class="fas fa-clock-rotate-left"></i>旧版
+      </a>
     </div>
   </div>
 
