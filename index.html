@@ -495,59 +495,87 @@ body {
   border-color: var(--green);
 }
 
-/* 网格排列模式（横向，一行多个） */
+/* 网格排列模式（瓷片，一行多个） */
 .sec-rows.grid-mode {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: 10px;
 }
 
 .sec-rows.grid-mode .link-card {
-  border: 1px solid var(--hairline);
-  border-radius: 10px;
-  background: var(--paper-hi);
+  border: 1px solid rgba(28, 26, 23, .10);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, .30);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
   overflow: hidden;
 }
 
 .sec-rows.grid-mode .link-card:hover {
+  background: rgba(255, 255, 255, .58);
   border-color: var(--ink-3);
-  box-shadow: 0 2px 10px rgba(28, 26, 23, .06);
+  box-shadow: 0 2px 12px rgba(28, 26, 23, .07);
 }
 
+/* 瓷片内部：编号与域名同行，名称、描述依次在下 */
 .sec-rows.grid-mode .link-card a {
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 3px;
-  padding: 13px 14px;
-  min-height: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    "no    domain"
+    "main  main"
+    "badge badge";
+  align-items: baseline;
+  align-content: start;
+  column-gap: 8px;
+  row-gap: 4px;
+  padding: 12px 14px;
+  min-height: 104px;
   height: 100%;
 }
 
 .sec-rows.grid-mode .row-no {
-  order: 1;
+  grid-area: no;
+  width: auto;
+  font-size: 10.5px;
+}
+
+.sec-rows.grid-mode .row-domain {
+  grid-area: domain;
+  justify-self: end;
+  font-size: 10px;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sec-rows.grid-mode .row-main {
-  order: 2;
+  grid-area: main;
   flex-direction: column;
   align-items: flex-start;
   gap: 2px;
   width: 100%;
 }
 
-.sec-rows.grid-mode .row-domain {
-  order: 3;
-  margin-top: 5px;
+.sec-rows.grid-mode .link-title {
+  font-size: 14.5px;
+}
+
+.sec-rows.grid-mode .link-desc {
+  flex: none;
 }
 
 .sec-rows.grid-mode .visit-badge {
-  order: 4;
-  margin-top: 3px;
+  grid-area: badge;
+  justify-self: start;
+  margin-top: 1px;
 }
 
 .sec-rows.grid-mode .favorite-btn {
-  top: 8px;
-  right: 8px;
+  top: 7px;
+  right: 7px;
   transform: none;
 }
 
@@ -1365,6 +1393,20 @@ body {
     display: none;
   }
 
+  /* 网格排列：窄屏降为两列，域名行保留 */
+  .sec-rows.grid-mode {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sec-rows.grid-mode .row-domain {
+    display: block;
+  }
+
+  .sec-rows.grid-mode .link-card a {
+    min-height: 0;
+    padding: 11px 12px;
+  }
+
   .favorite-btn {
     opacity: 1;
   }
@@ -1380,6 +1422,12 @@ body {
 
   .footer-inner {
     padding: 14px 16px 66px;
+  }
+}
+
+@media (max-width: 560px) {
+  .sec-rows.grid-mode {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
