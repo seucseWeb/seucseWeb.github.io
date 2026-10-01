@@ -12,1132 +12,1583 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
-    :root {
-      --primary-color: #445437;
-      --primary-dark: #3a472f;
-      --primary-light: #5a6b4a;
-      --secondary-color: #10b981;
-      --accent-color: #f59e0b;
-      --text-primary: #1f2937;
-      --text-secondary: #6b7280;
-      --bg-primary: #f9fafb;
-      --bg-secondary: #ffffff;
-      --border-color: #e5e7eb;
-      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-      --gradient-primary: linear-gradient(135deg, #445437 0%, #5a6b4a 100%);
-      --gradient-secondary: linear-gradient(135deg, #6b8e5a 0%, #445437 100%);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      line-height: 1.6;
-      transition: all 0.3s ease;
-    }
-
-    /* 顶部导航栏 */
-    .header {
-      background: var(--primary-color);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: var(--shadow-md);
-    }
-
-    .header-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      width: 60px;
-      height: 60px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: white;
-      transition: all 0.3s ease;
-    }
-
-    .logo:hover {
-      background: rgba(255, 255, 255, 0.3);
-      transform: scale(1.1);
-    }
-
-    .title {
-      color: white;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-
-
-
-    /* 搜索区域 */
-    .search-section {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-    }
-
-    .search-container {
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      background: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 1rem;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .search-container:focus-within {
-      box-shadow: 0 0 0 3px rgba(68, 84, 55, 0.1);
-      border-color: var(--primary-color);
-    }
-
-    .search-input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      background: transparent;
-      color: var(--text-primary);
-    }
-
-    .search-input::placeholder {
-      color: var(--text-secondary);
-    }
-
-    .search-btn, .clear-btn {
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .search-btn:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(68, 84, 55, 0.3);
-    }
-
-    .clear-btn {
-      background: var(--text-secondary);
-      padding: 0.75rem 1rem;
-    }
-
-    .clear-btn:hover {
-      background: #4b5563;
-    }
-
-    /* 搜索结果统计 */
-    .search-stats {
-      text-align: center;
-      margin-top: 1rem;
-      color: var(--text-secondary);
-      font-size: 0.875rem;
-    }
-
-    /* 分类标签 */
-    .category-tabs {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 2rem;
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .category-tab {
-      background: var(--bg-secondary);
-      border: 2px solid var(--border-color);
-      color: var(--text-secondary);
-      padding: 0.75rem 1.5rem;
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .category-tab::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .category-tab:hover::before {
-      left: 100%;
-    }
-
-    .category-tab.active {
-      background: var(--primary-color);
-      color: white;
-      border-color: var(--primary-color);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .category-tab:hover {
-      border-color: var(--primary-color);
-      color: var(--primary-color);
-      transform: translateY(-2px);
-    }
-
-    .category-tab.active:hover {
-      color: white;
-    }
-
-    /* 链接网格 */
-    .links-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .link-card {
-      background: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-color);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .link-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: var(--gradient-primary);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .link-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .link-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .link-card a {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      color: var(--text-primary);
-      font-weight: 500;
-      gap: 1rem;
-    }
-
-    .link-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--gradient-primary);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.2rem;
-      flex-shrink: 0;
-      transition: all 0.3s ease;
-    }
-
-    .link-card:hover .link-icon {
-      transform: rotate(5deg) scale(1.1);
-    }
-
-    .link-text {
-      flex: 1;
-    }
-
-    .link-title {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      transition: color 0.3s ease;
-    }
-
-    .link-card:hover .link-title {
-      color: var(--primary-color);
-    }
-
-    .link-desc {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    /* 收藏功能 */
-    .favorite-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      padding: 0.5rem;
-      border-radius: 8px;
-      z-index: 2;
-    }
-
-    .favorite-btn:hover, .favorite-btn.active {
-      color: var(--accent-color);
-      background: rgba(245, 158, 11, 0.1);
-      transform: scale(1.1);
-    }
-
-
-
-    /* 模态框 */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-
-    .modal.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-content {
-      background: var(--bg-secondary);
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: var(--shadow-lg);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-
-    .modal.show .modal-content {
-      transform: scale(1);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .modal-title {
-      font-size: 1.25rem;
-      font-weight: 600;
-    }
-
-    .close-btn {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    .close-btn:hover {
-      background: var(--border-color);
-    }
-
-    /* 底部信息 */
-    .footer {
-      margin-top: 4rem;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .stat-item {
-      background: var(--bg-secondary);
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--border-color);
-      transition: all 0.3s ease;
-    }
-
-    .stat-item:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-    }
-
-    .stat-label {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    .author-info {
-      color: var(--text-secondary);
-      margin-top: 1rem;
-    }
-
-    .author-info a {
-      color: var(--primary-color);
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-    }
-
-    .author-info a:hover {
-      color: var(--primary-dark);
-      text-decoration: underline;
-    }
-
-    /* 浮动按钮 */
-    .floating-btns {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      z-index: 100;
-    }
-
-    .floating-btn {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--primary-color);
-      color: white;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: var(--shadow-lg);
-      transition: all 0.3s ease;
-    }
-
-    .floating-btn:hover {
-      background: var(--primary-dark);
-      transform: scale(1.1) translateY(-2px);
-    }
-
-    /* Toast 通知 */
-    .toast {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      box-shadow: var(--shadow-lg);
-      border: 1px solid var(--border-color);
-      z-index: 10000;
-      font-weight: 500;
-      animation: fadeInUp 0.3s ease forwards;
-    }
-
-    /* 无搜索结果 */
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-secondary);
-    }
-
-    .no-results i {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-
-
-
-    /* 响应式设计 */
-    @media (max-width: 768px) {
-      .header-content {
-        padding: 1rem;
-      }
-      
-      .title {
-        font-size: 1.25rem;
-      }
-      
-      .links-container {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1rem;
-        padding: 1rem;
-      }
-      
-      .floating-btns {
-        bottom: 1rem;
-        right: 1rem;
-      }
-      
-      .stats {
-        gap: 1rem;
-      }
-      
-      .stat-item {
-        padding: 0.75rem 1.5rem;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .links-container {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 0.75rem;
-        padding: 0.75rem;
-      }
-      
-      .link-card {
-        padding: 1rem;
-      }
-      
-      .link-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-      }
-      
-      .link-title {
-        font-size: 0.9rem;
-      }
-      
-      .link-desc {
-        font-size: 0.8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .links-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-        padding: 0.5rem;
-      }
-      
-      .link-card {
-        padding: 0.75rem;
-      }
-      
-      .link-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
-      }
-      
-      .link-title {
-        font-size: 0.85rem;
-        margin-bottom: 0.125rem;
-      }
-      
-      .link-desc {
-        font-size: 0.75rem;
-      }
-      
-      .favorite-btn {
-        top: 0.5rem;
-        right: 0.5rem;
-        padding: 0.25rem;
-      }
-      
-
-      
-      .category-tabs {
-        padding: 0 1rem;
-        gap: 0.5rem;
-      }
-      
-      .category-tab {
-        padding: 0.5rem 1rem;
-        font-size: 0.875rem;
-      }
-      
-      .search-section {
-        padding: 0 1rem;
-      }
-      
-      .search-container {
-        flex-direction: column;
-        gap: 0.5rem;
-        padding: 0.75rem;
-      }
-      
-      .stats {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-      }
-      
-      .stat-item {
-        padding: 0.5rem 1rem;
-      }
-    }
-
-    /* 动画效果 */
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes bounce {
-      0%, 20%, 53%, 80%, 100% {
-        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-        transform: translate3d(0, 0, 0);
-      }
-      40%, 43% {
-        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-        transform: translate3d(0, -8px, 0);
-      }
-      70% {
-        animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
-        transform: translate3d(0, -4px, 0);
-      }
-      90% {
-        transform: translate3d(0, -2px, 0);
-      }
-    }
-
-    .fade-in-up {
-      animation: fadeInUp 0.6s ease forwards;
-    }
-
-    .bounce {
-      animation: bounce 1s ease;
-    }
-
-    /* 滚动条样式 */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--border-color);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-secondary);
-    }
-
-    /* 加载动画 */
-    .loading {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top-color: white;
-      animation: spin 1s ease-in-out infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* 搜索高亮 */
-    .highlight {
-      background: linear-gradient(120deg, rgba(245, 158, 11, 0.3) 0%, rgba(245, 158, 11, 0.1) 100%);
-      padding: 0 2px;
-      border-radius: 2px;
-    }
-
-    /* 拖拽提示 */
-    .draggable {
-      cursor: move;
-      user-select: none;
-    }
-
-    .dragging {
-      opacity: 0.5;
-      transform: rotate(5deg);
-    }
-
-    .drop-zone {
-      border: 2px dashed var(--primary-color);
-      background: rgba(68, 84, 55, 0.1);
-    }
-  </style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif+SC:wght@600;900&display=swap');
+
+/* ============================================================
+   东大计软智常用网址 · 编辑部索引设计
+   报头(衬线+印章+双规线) · 编号分区 · 清单行 · 暖纸色 · 单一绿色点缀
+   ============================================================ */
+
+:root {
+  --paper: #f7f6f2;
+  --paper-hi: #ffffff;
+  --ink: #1c1a17;
+  --ink-2: #57534a;
+  --ink-3: #8f8a80;
+  --hairline: #e4e1d8;
+  --line-soft: #d8d4c8;
+  --rule: #1c1a17;
+  --green: #0b6e4f;
+  --green-dark: #095a41;
+  --green-soft: rgba(11, 110, 79, .1);
+  --vermillion: #c2402a;
+  --amber: #d97706;
+
+  /* 兼容旧变量（JS 内联样式仍引用） */
+  --primary-color: #1c1a17;
+  --primary-dark: #000;
+  --secondary-color: #0b6e4f;
+  --accent-color: #d97706;
+  --text-secondary: #8f8a80;
+
+  --serif: 'Noto Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+  --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+  --page-max: 1120px;
+  --ease: cubic-bezier(.4, 0, .2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(11, 110, 79, .16);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   置顶迷你导航（滚过报头后出现）
+   ============================================================ */
+.minibar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(247, 246, 242, .92);
+  backdrop-filter: saturate(150%) blur(12px);
+  -webkit-backdrop-filter: saturate(150%) blur(12px);
+  border-bottom: 1px solid var(--hairline);
+  transform: translateY(-100%);
+  transition: transform .28s var(--ease);
+}
+
+.minibar.show {
+  transform: translateY(0);
+}
+
+.minibar-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  height: 48px;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.minibar-brand {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.minibar-brand .seal-mini {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: var(--vermillion);
+  color: #fff;
+  font-size: 9px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  transform: rotate(-4deg);
+}
+
+.minibar-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.minibar-links::-webkit-scrollbar {
+  display: none;
+}
+
+.minibar-links a {
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color .15s var(--ease);
+}
+
+.minibar-links a:hover {
+  color: var(--ink);
+}
+
+.minibar-links a.active {
+  color: var(--green);
+  font-weight: 600;
+}
+
+/* ============================================================
+   报头
+   ============================================================ */
+.masthead {
+  border-bottom: 2px solid var(--rule);
+}
+
+.mast-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 44px 32px 26px;
+}
+
+.mast-kicker {
+  font-size: 12px;
+  letter-spacing: .22em;
+  color: var(--ink-3);
+}
+
+.mast-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.mast-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(38px, 5.6vw, 62px);
+  line-height: 1.08;
+  letter-spacing: .015em;
+}
+
+/* 印章 */
+.seal {
+  flex: none;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: var(--vermillion);
+  color: #fff;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.15;
+  letter-spacing: 2px;
+  writing-mode: vertical-rl;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-4deg);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .35), 0 1px 2px rgba(28, 26, 23, .18);
+  user-select: none;
+}
+
+.mast-meta {
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.mast-meta .dot,
+.dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--line-soft);
+  display: inline-block;
+}
+
+#mastClock {
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ============================================================
+   搜索工具行
+   ============================================================ */
+.toolbar {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.toolbar-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 13px 32px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.search-container {
+  flex: 1;
+  max-width: 440px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 6px 0 12px;
+  background: var(--paper-hi);
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  transition: border-color .15s var(--ease), box-shadow .15s var(--ease);
+}
+
+.search-container:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+.search-container > i.fa-search {
+  color: var(--ink-3);
+  font-size: .82rem;
+  flex: none;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
+.search-input::placeholder {
+  color: var(--ink-3);
+}
+
+.kbd-chip {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  border: 1px solid var(--line-soft);
+  border-radius: 4px;
+  padding: 2px 5px;
+  background: var(--paper);
+}
+
+.clear-btn {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: .75rem;
+  transition: background .15s var(--ease), color .15s var(--ease);
+}
+
+.clear-btn:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.search-btn {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: .78rem;
+  transition: background .15s var(--ease), color .15s var(--ease);
+}
+
+.search-btn:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+.search-stats {
+  flex: none;
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.search-stats span {
+  font-weight: 600;
+  color: var(--green);
+}
+
+/* ============================================================
+   主体：左目录轨 + 右索引区
+   ============================================================ */
+.page-body {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 26px 32px 48px;
+  display: grid;
+  grid-template-columns: 176px minmax(0, 1fr);
+  gap: 52px;
+  align-items: start;
+}
+
+/* 目录轨 */
+.rail {
+  position: sticky;
+  top: 20px;
+}
+
+.rail-label {
+  font-size: 10px;
+  letter-spacing: .18em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding-left: 17px;
+}
+
+.rail-nav {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--hairline);
+}
+
+.rail-item {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-left: -1px;
+  padding: 6px 8px 6px 17px;
+  border-left: 2px solid transparent;
+  font-size: 13.5px;
+  color: var(--ink-2);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .15s var(--ease), border-color .15s var(--ease);
+}
+
+.rail-item .n {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+}
+
+.rail-item:hover {
+  color: var(--ink);
+}
+
+.rail-item.active {
+  color: var(--green);
+  font-weight: 600;
+  border-left-color: var(--green);
+}
+
+.rail-item.active .n {
+  color: var(--green);
+}
+
+.rail-sep {
+  height: 1px;
+  background: var(--hairline);
+  margin: 7px 0 7px 16px;
+}
+
+/* ============================================================
+   索引分区
+   ============================================================ */
+.index-section {
+  scroll-margin-top: 70px;
+}
+
+.index-section[hidden] {
+  display: none;
+}
+
+.index-section + .index-section {
+  margin-top: 38px;
+}
+
+.sec-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.sec-no {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--green);
+}
+
+.sec-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 23px;
+  line-height: 1.2;
+  letter-spacing: .05em;
+}
+
+.sec-en {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  transform: translateY(-2px);
+}
+
+.sec-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+.sec-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   站点清单行
+   ============================================================ */
+.link-card {
+  position: relative;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.link-card a {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 38px 13px 2px;
+  text-decoration: none;
+  color: inherit;
+  transition: background .15s var(--ease);
+}
+
+.link-card a:hover {
+  background: var(--paper-hi);
+}
+
+.row-no {
+  flex: none;
+  width: 26px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+  transition: color .15s var(--ease);
+}
+
+.link-card a:hover .row-no {
+  color: var(--green);
+}
+
+.row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.link-title {
+  flex: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .005em;
+  color: var(--ink);
+  transition: color .15s var(--ease);
+}
+
+.link-card a:hover .link-title {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.link-desc {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row-domain {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* 访问次数 */
+.visit-badge {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.visit-badge::before {
+  content: '·';
+  margin-right: 6px;
+}
+
+/* 收藏 */
+.favorite-btn {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: .74rem;
+  opacity: 0;
+  transition: opacity .15s var(--ease), color .15s var(--ease), background .15s var(--ease);
+}
+
+.link-card:hover .favorite-btn,
+.favorite-btn.active,
+.favorite-btn:focus-visible {
+  opacity: 1;
+}
+
+.favorite-btn:hover {
+  background: rgba(28, 26, 23, .05);
+  color: var(--ink);
+}
+
+.favorite-btn.active {
+  color: var(--amber);
+}
+
+/* 空结果 */
+.no-results {
+  padding: 56px 0;
+  text-align: center;
+}
+
+.no-results i {
+  display: block;
+  font-size: 1.4rem;
+  color: var(--ink-3);
+  margin-bottom: 10px;
+}
+
+.no-results h3 {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.no-results p {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+/* ============================================================
+   浮动按钮
+   ============================================================ */
+.floating-btns {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.floating-btn {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line-soft);
+  border-radius: 9px;
+  background: var(--paper-hi);
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: .84rem;
+  box-shadow: 0 2px 10px rgba(28, 26, 23, .08);
+  transition: background .15s var(--ease), color .15s var(--ease),
+    border-color .15s var(--ease), transform .15s var(--ease);
+}
+
+.floating-btn:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+  transform: translateY(-1px);
+}
+
+.floating-btn:active {
+  transform: scale(.95);
+}
+
+.floating-btn.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+/* ============================================================
+   模态框
+   ============================================================ */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(28, 26, 23, .45);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s var(--ease), visibility .2s var(--ease);
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  width: 100%;
+  max-width: 460px;
+  max-height: 84vh;
+  overflow-y: auto;
+  background: var(--paper);
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .4) inset, 0 24px 56px -16px rgba(28, 26, 23, .4);
+  transform: translateY(10px) scale(.98);
+  transition: transform .2s var(--ease);
+}
+
+.modal.show .modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.modal-title {
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: .05em;
+}
+
+.close-btn {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: .8rem;
+  transition: background .15s var(--ease), color .15s var(--ease);
+}
+
+.close-btn:hover {
+  background: rgba(28, 26, 23, .06);
+  color: var(--ink);
+}
+
+.modal-body {
+  font-size: 13px;
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+.modal-body p {
+  margin-bottom: 12px;
+}
+
+.modal-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+
+.modal-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.modal-list li {
+  position: relative;
+  padding: 5px 0 5px 16px;
+  font-size: 13px;
+  color: var(--ink);
+  border-bottom: 1px dashed var(--hairline);
+}
+
+.modal-list li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 14px;
+  width: 5px;
+  height: 5px;
+  border-radius: 1.5px;
+  background: var(--green);
+  transform: rotate(45deg);
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+}
+
+.btn-dark {
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid var(--ink);
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s var(--ease), transform .15s var(--ease);
+}
+
+.btn-dark:hover {
+  background: #000;
+}
+
+.btn-dark:active {
+  transform: scale(.97);
+}
+
+.btn-link {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green);
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ============================================================
+   底部
+   ============================================================ */
+.footer {
+  border-top: 2px solid var(--rule);
+}
+
+.footer-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 18px 32px 30px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+#bottom-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 5px;
+}
+
+#bottom-outer span {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.author-info a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.author-info a:hover {
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#current-time {
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+/* ============================================================
+   Toast
+   ============================================================ */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
+  z-index: 300;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: 13px;
+  padding: 9px 15px;
+  border-radius: 8px;
+  box-shadow: 0 14px 32px -8px rgba(28, 26, 23, .4);
+  animation: fadeInUp .2s var(--ease);
+}
+
+/* ============================================================
+   搜索高亮
+   ============================================================ */
+.highlight {
+  background: rgba(217, 119, 6, .22);
+  border-radius: 2px;
+  padding: 0 1px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   动画
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 53%, 80%, 100% {
+    animation-timing-function: cubic-bezier(.215, .61, .355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(.755, .05, .855, .06);
+    transform: translate3d(0, -3px, 0);
+  }
+  70% {
+    transform: translate3d(0, -2px, 0);
+  }
+  90% {
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.fade-in-up {
+  animation: fadeInUp .45s var(--ease) forwards;
+}
+
+.bounce {
+  animation: bounce .8s var(--ease);
+}
+
+.loading {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(28, 26, 23, .2);
+  border-radius: 50%;
+  border-top-color: var(--ink);
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* ============================================================
+   拖拽排序
+   ============================================================ */
+.draggable {
+  cursor: grab;
+  user-select: none;
+}
+
+.dragging {
+  opacity: .45;
+  background: var(--paper-hi);
+  box-shadow: 0 6px 20px -6px rgba(28, 26, 23, .3);
+}
+
+.drop-zone {
+  box-shadow: inset 2px 0 0 var(--green);
+  background: var(--green-soft);
+}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 900px) {
+  .page-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-top: 18px;
+  }
+
+  .rail {
+    position: static;
+    margin-bottom: 22px;
+  }
+
+  .rail-label {
+    display: none;
+  }
+
+  .rail-nav {
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    border-left: none;
+    border-bottom: 1px solid var(--hairline);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .rail-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rail-item {
+    margin-left: 0;
+    padding: 9px 12px;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    gap: 6px;
+  }
+
+  .rail-item.active {
+    border-bottom-color: var(--green);
+  }
+
+  .rail-sep {
+    width: 1px;
+    height: 16px;
+    margin: 0 6px;
+    flex: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .minibar-inner {
+    padding: 0 16px;
+  }
+
+  .minibar-brand span.brand-text {
+    display: none;
+  }
+
+  .mast-inner {
+    padding: 30px 16px 20px;
+  }
+
+  .mast-kicker {
+    font-size: 10.5px;
+    letter-spacing: .16em;
+  }
+
+  .mast-row {
+    gap: 14px;
+  }
+
+  .seal {
+    width: 36px;
+    height: 36px;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .toolbar-inner {
+    padding: 11px 16px;
+  }
+
+  .kbd-chip {
+    display: none;
+  }
+
+  .search-stats {
+    display: none !important;
+  }
+
+  .page-body {
+    padding: 16px 16px 40px;
+  }
+
+  /* 行式布局在窄屏改为两行 */
+  .link-card a {
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 36px 12px 2px;
+  }
+
+  .row-no {
+    padding-top: 2px;
+  }
+
+  .row-main {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .link-title {
+    font-size: 14.5px;
+  }
+
+  .link-desc {
+    font-size: 12px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  .row-domain {
+    display: none;
+  }
+
+  .favorite-btn {
+    opacity: 1;
+  }
+
+  .sec-title {
+    font-size: 20px;
+  }
+
+  .floating-btns {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .footer-inner {
+    padding: 14px 16px 66px;
+  }
+}
+
+@media (max-width: 420px) {
+  .mast-title {
+    font-size: 34px;
+  }
+
+  .mast-kicker {
+    letter-spacing: .1em;
+  }
+}
+
+/* 触屏 */
+@media (hover: none) {
+  .favorite-btn {
+    opacity: 1;
+  }
+}
+
+/* 无障碍：减少动效 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+</style>
 </head>
 
 <body>
-  <!-- 顶部导航 -->
-  <header class="header">
-    <div class="header-content">
-      <div class="logo-section">
-        <div class="logo">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-        <h1 class="title">东大计软智常用网址</h1>
-      </div>
+  <!-- 置顶迷你导航（滚动后出现） -->
+  <div class="minibar" id="minibar">
+    <div class="minibar-inner">
+      <span class="minibar-brand"><span class="seal-mini">印</span><span class="brand-text">计软智常用网址</span></span>
+      <nav class="minibar-links">
+        <a href="#sec-academic">学术</a>
+        <a href="#sec-service">服务</a>
+        <a href="#sec-resource">资源</a>
+        <a href="#sec-graduate">研究生</a>
+      </nav>
+    </div>
+  </div>
 
+  <!-- 报头 -->
+  <header class="masthead">
+    <div class="mast-inner">
+      <p class="mast-kicker">东南大学 · 计算机科学与工程学院 / 软件学院 / 人工智能学院</p>
+      <div class="mast-row">
+        <h1 class="mast-title">计软智常用网址</h1>
+        <span class="seal" aria-hidden="true">计软智</span>
+      </div>
+      <p class="mast-meta">
+        <span>共 21 个常用站点</span>
+        <span class="dot"></span>
+        <span>持续更新</span>
+        <span class="dot"></span>
+        <span id="mastClock">—</span>
+      </p>
     </div>
   </header>
 
-  <!-- 搜索区域 -->
-  <section class="search-section">
-    <div class="search-container">
-      <i class="fas fa-search" style="color: var(--text-secondary); margin-right: 0.5rem;"></i>
-      <input type="text" class="search-input" id="searchInput" placeholder="搜索网址名称、描述或分类..." autocomplete="off">
-      <button class="clear-btn" onclick="clearSearch()" title="清空搜索">
-        <i class="fas fa-times"></i>
-      </button>
-      <button class="search-btn" id="searchBtn" title="站内搜索">
-        <i class="fas fa-search"></i> 搜索
-      </button>
+  <!-- 搜索工具行 -->
+  <div class="toolbar">
+    <div class="toolbar-inner">
+      <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" class="search-input" id="searchInput" placeholder="搜索站点名称、描述或分类…" autocomplete="off">
+        <span class="kbd-chip">Ctrl K</span>
+        <button class="clear-btn" onclick="clearSearch()" title="清空搜索" aria-label="清空搜索">
+          <i class="fas fa-times"></i>
+        </button>
+        <button class="search-btn" id="searchBtn" title="站内搜索" aria-label="搜索">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      <p class="search-stats" id="searchStats" style="display: none;">
+        找到 <span id="searchCount">0</span> 个相关站点
+      </p>
     </div>
-    <div class="search-stats" id="searchStats" style="display: none;">
-      找到 <span id="searchCount">0</span> 个相关网站
-    </div>
-  </section>
+  </div>
 
-  <!-- 分类标签 -->
-  <section class="category-tabs">
-    <button class="category-tab active" onclick="filterCategory('all')" data-category="all">
-      <i class="fas fa-th-large"></i> 全部
-    </button>
-    <button class="category-tab" onclick="filterCategory('academic')" data-category="academic">
-      <i class="fas fa-graduation-cap"></i> 学术
-    </button>
-    <button class="category-tab" onclick="filterCategory('service')" data-category="service">
-      <i class="fas fa-cogs"></i> 服务
-    </button>
-    <button class="category-tab" onclick="filterCategory('resource')" data-category="resource">
-      <i class="fas fa-folder"></i> 资源
-    </button>
-    <button class="category-tab" onclick="filterCategory('graduate')" data-category="graduate">
-      <i class="fas fa-user-graduate"></i> 研究生
-    </button>
-    <button class="category-tab" onclick="filterCategory('favorite')" data-category="favorite">
-      <i class="fas fa-star"></i> 收藏
-    </button>
-    <button class="category-tab" onclick="filterCategory('recent')" data-category="recent">
-      <i class="fas fa-clock"></i> 最近
-    </button>
-  </section>
+  <!-- 主体：目录轨 + 索引 -->
+  <div class="page-body">
+    <aside class="rail">
+      <p class="rail-label">目录 Index</p>
+      <nav class="rail-nav" id="railNav">
+        <a class="rail-item active" data-rail="all" onclick="railAll(this)">全部<span class="n">21</span></a>
+        <a class="rail-item" data-rail="academic" href="#sec-academic" onclick="railMark(this)">学术<span class="n">5</span></a>
+        <a class="rail-item" data-rail="service" href="#sec-service" onclick="railMark(this)">服务<span class="n">7</span></a>
+        <a class="rail-item" data-rail="resource" href="#sec-resource" onclick="railMark(this)">资源<span class="n">7</span></a>
+        <a class="rail-item" data-rail="graduate" href="#sec-graduate" onclick="railMark(this)">研究生<span class="n">2</span></a>
+        <div class="rail-sep"></div>
+        <a class="rail-item" data-rail="favorite" onclick="filterCategory('favorite'); railMark(this)">收藏<span class="n">★</span></a>
+        <a class="rail-item" data-rail="recent" onclick="filterCategory('recent'); railMark(this)">最近<span class="n">↺</span></a>
+      </nav>
+    </aside>
 
   <!-- 链接网格 -->
-  <main class="links-container" id="links-container">
-    <!-- 学术类 -->
-    <div class="link-card fade-in-up" data-category="academic" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+  <main class="index" id="links-container">
+  <section class="index-section" id="sec-academic" data-section="academic">
+    <header class="sec-head">
+      <span class="sec-no">01</span>
+      <h2 class="sec-title">学术</h2>
+      <span class="sec-en">Academic</span>
+      <span class="sec-count">5 sites</span>
+    </header>
+    <div class="sec-rows">
+    <div class="link-card fade-in-up" data-category="academic">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://www.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-university"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">东南大学</div>
-          <div class="link-desc">东南大学官方网站</div>
-        </div>
+      <a href="https://www.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">01</span>
+        <span class="row-main">
+          <span class="link-title">东南大学</span>
+          <span class="link-desc">东南大学官方网站</span>
+        </span>
+        <span class="row-domain">seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="academic" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="academic">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://cs.seu.edu.cn" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-laptop-code"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">计算机学院</div>
-          <div class="link-desc">计算机科学与工程学院官网</div>
-        </div>
+      <a href="https://cs.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">02</span>
+        <span class="row-main">
+          <span class="link-title">计算机学院</span>
+          <span class="link-desc">计算机科学与工程学院官网</span>
+        </span>
+        <span class="row-domain">cs.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="academic" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="academic">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://jwc.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">教务处</div>
-          <div class="link-desc">教学事务管理</div>
-        </div>
+      <a href="https://jwc.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">03</span>
+        <span class="row-main">
+          <span class="link-title">教务处</span>
+          <span class="link-desc">教学事务管理</span>
+        </span>
+        <span class="row-domain">jwc.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="academic" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="academic">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://phylab.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-flask"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">物理实验中心</div>
-          <div class="link-desc">物理实验教学平台</div>
-        </div>
+      <a href="https://phylab.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">04</span>
+        <span class="row-main">
+          <span class="link-title">物理实验中心</span>
+          <span class="link-desc">物理实验教学平台</span>
+        </span>
+        <span class="row-domain">phylab.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="academic" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="academic">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="http://newxk.urp.seu.edu.cn" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-pencil-alt"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">选课系统</div>
-          <div class="link-desc">课程选择与管理</div>
-        </div>
+      <a href="http://newxk.urp.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">05</span>
+        <span class="row-main">
+          <span class="link-title">选课系统</span>
+          <span class="link-desc">课程选择与管理</span>
+        </span>
+        <span class="row-domain">newxk.urp.seu.edu.cn</span>
       </a>
-
     </div>
+    </div>
+  </section>
 
-    <!-- 服务类 -->
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+  <section class="index-section" id="sec-service" data-section="service">
+    <header class="sec-head">
+      <span class="sec-no">02</span>
+      <h2 class="sec-title">服务</h2>
+      <span class="sec-en">Service</span>
+      <span class="sec-count">7 sites</span>
+    </header>
+    <div class="sec-rows">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-desktop"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">办事大厅</div>
-          <div class="link-desc">网上办事服务平台</div>
-        </div>
+      <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">01</span>
+        <span class="row-main">
+          <span class="link-title">办事大厅</span>
+          <span class="link-desc">网上办事服务平台</span>
+        </span>
+        <span class="row-domain">ehall.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="http://i.seu.edu.cn/index.html#/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-info-circle"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">信息平台</div>
-          <div class="link-desc">东大综合信息服务</div>
-        </div>
+      <a href="http://i.seu.edu.cn/index.html#/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">02</span>
+        <span class="row-main">
+          <span class="link-title">信息平台</span>
+          <span class="link-desc">东大综合信息服务</span>
+        </span>
+        <span class="row-domain">i.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-newspaper"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">数智东南</div>
-          <div class="link-desc">校园资讯平台</div>
-        </div>
+      <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">03</span>
+        <span class="row-main">
+          <span class="link-title">数智东南</span>
+          <span class="link-desc">校园资讯平台</span>
+        </span>
+        <span class="row-domain">todo.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://cwc.seu.edu.cn/main.psp" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-money-bill-wave"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">财务处</div>
-          <div class="link-desc">财务管理与查询</div>
-        </div>
+      <a href="https://cwc.seu.edu.cn/main.psp" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">04</span>
+        <span class="row-main">
+          <span class="link-title">财务处</span>
+          <span class="link-desc">财务管理与查询</span>
+        </span>
+        <span class="row-domain">cwc.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://labor.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-hammer"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">劳动教育</div>
-          <div class="link-desc">劳动教育与实践平台</div>
-        </div>
+      <a href="https://labor.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">05</span>
+        <span class="row-main">
+          <span class="link-title">劳动教育</span>
+          <span class="link-desc">劳动教育与实践平台</span>
+        </span>
+        <span class="row-domain">labor.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-tasks"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">教务处办事平台</div>
-          <div class="link-desc">学生事务办理</div>
-        </div>
+      <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">06</span>
+        <span class="row-main">
+          <span class="link-title">教务处办事平台</span>
+          <span class="link-desc">学生事务办理</span>
+        </span>
+        <span class="row-domain">jwc.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="service" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="service">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-award"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">第二课堂</div>
-          <div class="link-desc">课外活动管理平台</div>
-        </div>
+      <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">07</span>
+        <span class="row-main">
+          <span class="link-title">第二课堂</span>
+          <span class="link-desc">课外活动管理平台</span>
+        </span>
+        <span class="row-domain">auth.seu.edu.cn</span>
       </a>
-
     </div>
+    </div>
+  </section>
 
-    <!-- 资源类 -->
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+  <section class="index-section" id="sec-resource" data-section="resource">
+    <header class="sec-head">
+      <span class="sec-no">03</span>
+      <h2 class="sec-title">资源</h2>
+      <span class="sec-en">Resource</span>
+      <span class="sec-count">7 sites</span>
+    </header>
+    <div class="sec-rows">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="http://www.lib.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-book"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">图书馆</div>
-          <div class="link-desc">学术资源与文献检索</div>
-        </div>
+      <a href="http://www.lib.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">01</span>
+        <span class="row-main">
+          <span class="link-title">图书馆</span>
+          <span class="link-desc">学术资源与文献检索</span>
+        </span>
+        <span class="row-domain">lib.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://pan.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-cloud"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">文档云</div>
-          <div class="link-desc">云端文档存储服务</div>
-        </div>
+      <a href="https://pan.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">02</span>
+        <span class="row-main">
+          <span class="link-title">文档云</span>
+          <span class="link-desc">云端文档存储服务</span>
+        </span>
+        <span class="row-domain">pan.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://mail.seu.edu.cn" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-envelope"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">东大邮箱</div>
-          <div class="link-desc">官方邮件服务</div>
-        </div>
+      <a href="https://mail.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">03</span>
+        <span class="row-main">
+          <span class="link-title">东大邮箱</span>
+          <span class="link-desc">官方邮件服务</span>
+        </span>
+        <span class="row-domain">mail.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://cvs.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-video"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">云课堂</div>
-          <div class="link-desc">在线学习平台</div>
-        </div>
+      <a href="https://cvs.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">04</span>
+        <span class="row-main">
+          <span class="link-title">云课堂</span>
+          <span class="link-desc">在线学习平台</span>
+        </span>
+        <span class="row-domain">cvs.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://nic.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-network-wired"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">网络中心</div>
-          <div class="link-desc">网络与信息中心</div>
-        </div>
+      <a href="https://nic.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">05</span>
+        <span class="row-main">
+          <span class="link-title">网络中心</span>
+          <span class="link-desc">网络与信息中心</span>
+        </span>
+        <span class="row-domain">nic.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-fire"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">薪火计划</div>
-          <div class="link-desc">学习资源共享平台</div>
-        </div>
+      <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">06</span>
+        <span class="row-main">
+          <span class="link-title">薪火计划</span>
+          <span class="link-desc">学习资源共享平台</span>
+        </span>
+        <span class="row-domain">tommy.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="resource" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="resource">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-calculator"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">绩点计算器</div>
-          <div class="link-desc">GPA计算工具</div>
-        </div>
+      <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">07</span>
+        <span class="row-main">
+          <span class="link-title">绩点计算器</span>
+          <span class="link-desc">GPA计算工具</span>
+        </span>
+        <span class="row-domain">seucseweb.github.io</span>
       </a>
-
     </div>
+    </div>
+  </section>
 
-    <!-- 研究生类 -->
-    <div class="link-card fade-in-up" data-category="graduate" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+  <section class="index-section" id="sec-graduate" data-section="graduate">
+    <header class="sec-head">
+      <span class="sec-no">04</span>
+      <h2 class="sec-title">研究生</h2>
+      <span class="sec-en">Graduate</span>
+      <span class="sec-count">2 sites</span>
+    </header>
+    <div class="sec-rows">
+    <div class="link-card fade-in-up" data-category="graduate">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://seugs.seu.edu.cn/" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-user-graduate"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">研究生院</div>
-          <div class="link-desc">东南大学研究生院官网</div>
-        </div>
+      <a href="https://seugs.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">01</span>
+        <span class="row-main">
+          <span class="link-title">研究生院</span>
+          <span class="link-desc">东南大学研究生院官网</span>
+        </span>
+        <span class="row-domain">seugs.seu.edu.cn</span>
       </a>
-
     </div>
-
-    <div class="link-card fade-in-up" data-category="graduate" draggable="true">
-      <button class="favorite-btn" onclick="toggleFavorite(this)">
+    <div class="link-card fade-in-up" data-category="graduate">
+      <button class="favorite-btn" onclick="toggleFavorite(this)" aria-label="收藏">
         <i class="fas fa-star"></i>
       </button>
-      <a href="https://yjsxk.urp.seu.edu.cn/yjsxkapp/sys/xsxkapp/index.html" target="_blank" onclick="recordVisit(this)">
-        <div class="link-icon">
-          <i class="fas fa-book-open"></i>
-        </div>
-        <div class="link-text">
-          <div class="link-title">研究生选课</div>
-          <div class="link-desc">研究生课程选择与管理</div>
-        </div>
+      <a href="https://yjsxk.urp.seu.edu.cn/yjsxkapp/sys/xsxkapp/index.html" target="_blank" rel="noopener" onclick="recordVisit(this)">
+        <span class="row-no">02</span>
+        <span class="row-main">
+          <span class="link-title">研究生选课</span>
+          <span class="link-desc">研究生课程选择与管理</span>
+        </span>
+        <span class="row-domain">yjsxk.urp.seu.edu.cn</span>
       </a>
-
     </div>
+    </div>
+  </section>
   </main>
+  </div>
 
   <!-- 浮动按钮 -->
   <div class="floating-btns">
@@ -1152,66 +1603,49 @@
     </button>
   </div>
 
-  <!-- 模态框 -->
+  <!-- 作者的话 -->
   <div class="modal" id="modal">
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title">作者的话</h2>
-        <button class="close-btn" onclick="hideModal()">
+        <button class="close-btn" onclick="hideModal()" aria-label="关闭">
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div style="color: var(--text-secondary); line-height: 1.8;">
-        <p style="margin-bottom: 1rem;">
-          做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个 html，
-          后来想干脆做一个在线的网页……
-        </p>
-        <p style="margin-bottom: 1rem;">
-          （ps：ctrl+k可以定位到搜索框）
-        </p>
-        <p style="margin-bottom: 1rem;">
-          <strong>新功能：</strong>
-        </p>
-        <ul style="margin-bottom: 1rem; padding-left: 1.5rem;">
-          <li>✨ 改进的站内搜索，无需跳转</li>
-          <li>🎯 最近访问记录</li>
-          <li>🔄 拖拽排序功能（持久化保存）</li>
-          <li>🎨 增强的视觉效果</li>
+      <div class="modal-body">
+        <p>做这么一个网站集锦的初衷是因为感觉找网站很麻烦，于是搞了个 html，后来想干脆做一个在线的网页……</p>
+        <p>（ps：Ctrl+K 可以定位到搜索框）</p>
+        <p class="modal-label">新功能</p>
+        <ul class="modal-list">
+          <li>改进的站内搜索，无需跳转外部引擎</li>
+          <li>最近访问记录与访问次数统计</li>
+          <li>分区目录，拖拽排序（持久化保存）</li>
         </ul>
-        <p style="margin-bottom: 1rem;">
-          如果有想加入的网站或发现BUG，请邮件至：
-        </p>
-        <p style="text-align: center;">
-          <a href="mailto:1575373800@qq.com" style="color: var(--primary-color); text-decoration: none; font-weight: 500;">
-            📧 1575373800@qq.com
-          </a>
-        </p>
-        <p style="margin-top: 1rem; text-align: center;">
-          <button onclick="resetCustomOrder()" style="background: var(--primary-color); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; margin-right: 1rem;">
-            🔄 重置排序
-          </button>
-          <a href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" 
-             target="_blank" 
-             style="color: var(--secondary-color); text-decoration: none; font-weight: 500;">
-            💬 或者点击这里留言
-          </a>
-        </p>
+        <p>如果有想加入的网站或发现 BUG，欢迎联系：</p>
+        <div class="modal-actions">
+          <button class="btn-dark" onclick="resetCustomOrder()">重置排序</button>
+          <a class="btn-link" href="mailto:1575373800@qq.com">1575373800@qq.com</a>
+          <a class="btn-link" href="https://www.askbox.ink/box/uu/BTT25B13?uid=6e33972bbf4562ad5f8bb38a7db456f3" target="_blank">在线留言 →</a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- 底部信息 -->
   <footer class="footer">
-    <div id="bottom-outer">
-      本站总访问量 <span id="busuanzi_value_site_pv">32679</span> 次 |
-      访客数 <span id="busuanzi_value_site_uv">28690</span> 人
-    </div>
-    <div class="author-info">
-      <p>
-        <a href="https://liumengxuan04.github.io/" target="_blank">© 小黑菌</a> | 
-        来自22级软件学院-小黑菌 | 
+    <div class="footer-inner">
+      <div id="bottom-outer">
+        本站总访问量 <span id="busuanzi_value_site_pv">32679</span> 次
+        <span class="dot"></span>
+        访客数 <span id="busuanzi_value_site_uv">28690</span> 人
+      </div>
+      <div class="author-info">
+        <a href="https://liumengxuan04.github.io/" target="_blank">© 小黑菌</a>
+        <span class="dot"></span>
+        <span>来自 22 级软件学院</span>
+        <span class="dot"></span>
         <span id="current-time"></span>
-      </p>
+      </div>
     </div>
   </footer>
 
@@ -1230,7 +1664,9 @@
     document.addEventListener('DOMContentLoaded', function() {
 
       initializeFavorites();
+      renderVisitBadges();
       applyCustomOrder();
+      setupMinibar();
       updateTime();
       setInterval(updateTime, 1000);
       addScrollAnimation();
@@ -1289,6 +1725,8 @@
       } else {
         hideNoResults();
       }
+      
+      updateSectionVisibility();
     }
 
     function highlightText(card, keyword) {
@@ -1333,38 +1771,11 @@
       document.getElementById('searchInput').focus();
     }
 
-    // 分类筛选
+    // 分类筛选：收藏 / 最近 两种视图，其余为锚点浏览
     function filterCategory(category) {
-      currentCategory = category;
-      const cards = document.querySelectorAll('.link-card');
-      const tabs = document.querySelectorAll('.category-tab');
-      
-      // 更新标签状态
-      tabs.forEach(tab => tab.classList.remove('active'));
-      event.target.classList.add('active');
-      
-      // 筛选卡片
-      let visibleCount = 0;
-      cards.forEach((card, index) => {
-        const shouldShow = category === 'all' || 
-                          card.dataset.category === category ||
-                          (category === 'favorite' && card.querySelector('.favorite-btn').classList.contains('active')) ||
-                          (category === 'recent' && isRecent(card));
-        
-        if (shouldShow) {
-          card.style.display = 'block';
-          card.style.animationDelay = `${index * 0.1}s`;
-          card.classList.add('fade-in-up');
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-      });
-      
-      // 清空搜索
+      currentCategory = (category === 'favorite' || category === 'recent') ? category : 'all';
       document.getElementById('searchInput').value = '';
-      updateSearchStats(visibleCount);
-      hideNoResults();
+      performSearch();
     }
 
     // 收藏功能
@@ -1416,12 +1827,75 @@
       recentVisits = recentVisits.slice(0, 10); // 只保留最近10个
       localStorage.setItem('recentVisits', JSON.stringify(recentVisits));
       
+      // 累计该站点的访问次数
+      const visitCounts = JSON.parse(localStorage.getItem('visitCounts') || '{}');
+      visitCounts[title] = (visitCounts[title] || 0) + 1;
+      localStorage.setItem('visitCounts', JSON.stringify(visitCounts));
+      updateVisitBadge(card, visitCounts[title]);
+      
       // 添加访问动画
       card.classList.add('bounce');
       setTimeout(() => card.classList.remove('bounce'), 1000);
     }
 
 
+
+    // 访问次数标注
+    function updateVisitBadge(card, count) {
+      const link = card.querySelector('a');
+      if (!link) return;
+      let badge = card.querySelector('.visit-badge');
+      if (count > 0) {
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'visit-badge';
+          link.appendChild(badge);
+        }
+        badge.textContent = count + ' 次';
+      } else if (badge) {
+        badge.remove();
+      }
+    }
+
+    function renderVisitBadges() {
+      const visitCounts = JSON.parse(localStorage.getItem('visitCounts') || '{}');
+      document.querySelectorAll('.link-card').forEach(card => {
+        const title = card.querySelector('.link-title').textContent;
+        updateVisitBadge(card, visitCounts[title] || 0);
+      });
+    }
+
+    // 迷你导航：滚过报头后出现
+    function setupMinibar() {
+      const bar = document.getElementById('minibar');
+      if (!bar) return;
+      const onScroll = () => bar.classList.toggle('show', window.scrollY > 240);
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+
+    // 隐藏没有可见行的分区
+    function updateSectionVisibility() {
+      document.querySelectorAll('.index-section').forEach(sec => {
+        const any = Array.prototype.some.call(
+          sec.querySelectorAll('.link-card'),
+          c => c.style.display !== 'none'
+        );
+        sec.style.display = any ? '' : 'none';
+      });
+    }
+
+    // 目录轨状态
+    function railMark(el) {
+      document.querySelectorAll('.rail-item').forEach(i => i.classList.remove('active'));
+      if (el) el.classList.add('active');
+    }
+
+    function railAll(el) {
+      filterCategory('all');
+      railMark(el);
+      scrollToTop();
+    }
 
     function isRecent(card) {
       const title = card.querySelector('.link-title').textContent;
@@ -1436,14 +1910,12 @@
       
       if (isDragMode) {
         toggle.classList.add('active');
-        toggle.style.background = 'var(--accent-color)';
         showToast('拖拽模式已开启，可以拖拽重新排序 🔄');
         cards.forEach(card => {
           card.classList.add('draggable');
         });
       } else {
         toggle.classList.remove('active');
-        toggle.style.background = 'var(--primary-color)';
         showToast('拖拽模式已关闭');
         cards.forEach(card => {
           card.classList.remove('draggable', 'dragging', 'drop-zone');
@@ -1470,14 +1942,16 @@
     }
 
     function handleDragOver(e) {
-      if (!isDragMode || draggedElement === this) return;
+      if (!isDragMode || !draggedElement || draggedElement === this) return;
+      if (draggedElement.closest('.index-section') !== this.closest('.index-section')) return;
       e.preventDefault();
       e.dataTransfer.dropEffect = 'move';
       this.classList.add('drop-zone');
     }
 
     function handleDrop(e) {
-      if (!isDragMode || draggedElement === this) return;
+      if (!isDragMode || !draggedElement || draggedElement === this) return;
+      if (draggedElement.closest('.index-section') !== this.closest('.index-section')) return;
       e.preventDefault();
       this.classList.remove('drop-zone');
       
@@ -1498,33 +1972,27 @@
       showToast('位置已交换并保存 ✨');
     }
 
-    // 应用自定义排序
+    // 应用自定义排序（分区内按保存的标题顺序重排）
     function applyCustomOrder() {
       if (customOrder.length === 0) return;
       
-      const container = document.getElementById('links-container');
-      const cards = Array.from(container.children);
-      
-      // 按自定义顺序重新排列卡片
-      customOrder.forEach((title, index) => {
-        const card = cards.find(card => 
-          card.querySelector('.link-title').textContent === title
-        );
-        if (card && card !== container.children[index]) {
-          container.insertBefore(card, container.children[index]);
-        }
+      document.querySelectorAll('.index-section').forEach(sec => {
+        const rows = sec.querySelector('.sec-rows');
+        if (!rows) return;
+        const cards = Array.from(rows.children).filter(c => c.classList.contains('link-card'));
+        cards.sort((a, b) => {
+          const ia = customOrder.indexOf(a.querySelector('.link-title').textContent);
+          const ib = customOrder.indexOf(b.querySelector('.link-title').textContent);
+          return (ia === -1 ? 9999 : ia) - (ib === -1 ? 9999 : ib);
+        });
+        cards.forEach(c => rows.appendChild(c));
       });
     }
     
     // 保存自定义排序
     function saveCustomOrder() {
-      const container = document.getElementById('links-container');
-      const cards = Array.from(container.children);
-      
-      customOrder = cards.map(card => 
-        card.querySelector('.link-title').textContent
-      );
-      
+      customOrder = Array.from(document.querySelectorAll('.link-card .link-title'))
+        .map(t => t.textContent);
       localStorage.setItem('customOrder', JSON.stringify(customOrder));
     }
     
@@ -1595,6 +2063,13 @@
         minute: '2-digit',
         second: '2-digit'
       });
+      const clockElement = document.getElementById('mastClock');
+      if (clockElement) {
+        clockElement.textContent = now.toLocaleDateString('zh-CN', {
+          year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'
+        });
+      }
+      
       const timeElement = document.getElementById('current-time');
       if (timeElement) {
         timeElement.textContent = timeStr;
