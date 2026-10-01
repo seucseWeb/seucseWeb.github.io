@@ -116,19 +116,19 @@ body {
     opacity: .22;
   }
 
+  /* 巨型校标水印：居中铺满上半内容区 */
   .bg-emblem {
     display: block;
-    right: 60px;
-    top: 12%;
-    width: 360px;
-    opacity: .075;
+    left: 50%;
+    top: 42vh;
+    transform: translateX(-50%);
+    width: min(1500px, 84vw);
+    opacity: .055;
   }
 
-  /* 只取校标上半，如浮出纸面的印痕 */
   .bg-emblem img {
     width: 100%;
     display: block;
-    clip-path: inset(0 0 42% 0);
   }
 }
 
@@ -1307,7 +1307,7 @@ body {
   <div class="bg" aria-hidden="true">
     <img class="bg-motto" src="assets/seu-motto-v.svg" alt="">
     <img class="bg-pine" src="assets/seu-liuchao.svg" alt="">
-    <div class="bg-emblem"><img src="assets/seu-emblem.svg" alt=""></div>
+    <div class="bg-emblem"><img src="assets/seu-emblem-bw.svg" alt=""></div>
   </div>
 
   <!-- 置顶迷你导航（滚动后出现） -->
