@@ -180,21 +180,28 @@ body {
   border-bottom: 2px solid var(--rule);
 }
 
-/* 报头「東」字水印 */
-.masthead::before {
-  content: '東';
+/* 校训挂轴（止于至善） */
+.mast-scroll {
   position: absolute;
-  right: 1.5%;
+  right: 40px;
   top: 50%;
   transform: translateY(-50%);
-  font-family: var(--serif);
-  font-weight: 900;
-  font-size: clamp(120px, 14vw, 185px);
-  line-height: 1;
-  color: rgba(28, 26, 23, .03);
-  -webkit-text-stroke: 1.2px rgba(28, 26, 23, .075);
-  pointer-events: none;
-  user-select: none;
+  width: 66px;
+  height: 204px;
+  padding: 10px 8px;
+  background: var(--paper-hi);
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+  box-shadow: 0 2px 12px rgba(28, 26, 23, .08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mast-scroll img {
+  max-height: 100%;
+  max-width: 100%;
+  display: block;
 }
 
 .mast-inner {
@@ -202,7 +209,7 @@ body {
   z-index: 1;
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 44px 32px 26px;
+  padding: 44px 150px 26px 32px;
 }
 
 .mast-kicker {
@@ -887,6 +894,16 @@ body {
   text-underline-offset: 3px;
 }
 
+/* 大礼堂连续纹样带 */
+.footer-band {
+  height: 54px;
+  margin-top: 30px;
+  background-image: url("assets/seu-dlt-band.svg");
+  background-repeat: repeat-x;
+  background-position: center bottom;
+  background-size: auto 46px;
+}
+
 /* ============================================================
    底部
    ============================================================ */
@@ -901,6 +918,13 @@ body {
   text-align: center;
   font-size: 12px;
   color: var(--ink-3);
+}
+
+.footer-emblem {
+  display: block;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 10px;
 }
 
 #bottom-outer {
@@ -1112,6 +1136,10 @@ body {
     padding: 30px 16px 20px;
   }
 
+  .mast-scroll {
+    display: none;
+  }
+
   .mast-kicker {
     font-size: 10.5px;
     letter-spacing: .16em;
@@ -1250,6 +1278,9 @@ body {
       <div class="mast-row">
         <h1 class="mast-title">计软智常用网址</h1>
         <span class="seal" aria-hidden="true">计软智</span>
+      </div>
+      <div class="mast-scroll">
+        <img src="assets/seu-motto-v.svg" alt="东南大学校训：止于至善">
       </div>
       <p class="mast-meta">
         <span>共 21 个常用站点</span>
@@ -1659,9 +1690,13 @@ body {
     </div>
   </div>
 
+  <!-- 大礼堂连续纹样带 -->
+  <div class="footer-band" aria-hidden="true"></div>
+
   <!-- 底部信息 -->
   <footer class="footer">
     <div class="footer-inner">
+      <img class="footer-emblem" src="assets/seu-emblem.svg" alt="东南大学校标" width="44" height="44">
       <div id="bottom-outer">
         本站总访问量 <span id="busuanzi_value_site_pv">32679</span> 次
         <span class="dot"></span>
