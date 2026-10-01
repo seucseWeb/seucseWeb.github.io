@@ -130,7 +130,7 @@ body {
     top: 42vh;
     transform: translateX(-50%);
     width: min(1500px, 84vw);
-    opacity: .038;
+    opacity: .05;
   }
 
   .bg-emblem img {
@@ -495,88 +495,79 @@ body {
   border-color: var(--green);
 }
 
-/* 网格排列模式（瓷片，一行多个） */
-.sec-rows.grid-mode {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
-  gap: 10px;
-}
-
-.sec-rows.grid-mode .link-card {
-  border: 1px solid rgba(28, 26, 23, .10);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, .30);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  overflow: hidden;
-}
-
-.sec-rows.grid-mode .link-card:hover {
-  background: rgba(255, 255, 255, .58);
-  border-color: var(--ink-3);
-  box-shadow: 0 2px 12px rgba(28, 26, 23, .07);
-}
-
-/* 瓷片内部：编号与域名同行，名称、描述依次在下 */
-.sec-rows.grid-mode .link-card a {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas:
-    "no    domain"
-    "main  main"
-    "badge badge";
-  align-items: baseline;
-  align-content: start;
-  column-gap: 8px;
-  row-gap: 4px;
-  padding: 12px 14px;
-  min-height: 104px;
-  height: 100%;
-}
-
-.sec-rows.grid-mode .row-no {
-  grid-area: no;
-  width: auto;
-  font-size: 10.5px;
-}
-
-.sec-rows.grid-mode .row-domain {
-  grid-area: domain;
-  justify-self: end;
-  font-size: 10px;
-  min-width: 0;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.sec-rows.grid-mode .row-main {
-  grid-area: main;
+/* 列表排列模式（清单行，一行一个；网格为默认） */
+.sec-rows.list-mode {
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-  width: 100%;
 }
 
-.sec-rows.grid-mode .link-title {
-  font-size: 14.5px;
+.sec-rows.list-mode .link-card {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
 }
 
-.sec-rows.grid-mode .link-desc {
-  flex: none;
+.sec-rows.list-mode .link-card:hover {
+  background: var(--paper-hi);
+  border-color: var(--ink-3);
+  box-shadow: none;
 }
 
-.sec-rows.grid-mode .visit-badge {
-  grid-area: badge;
-  justify-self: start;
-  margin-top: 1px;
-}
-
-.sec-rows.grid-mode .favorite-btn {
-  top: 7px;
-  right: 7px;
+.sec-rows.list-mode .link-card:active {
   transform: none;
+}
+
+/* 编号与域名并回主行：摊平 tile-head，用 order 重排为「编号 · 名称 · 描述 · 域名」 */
+.sec-rows.list-mode .link-card a {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 38px 13px 2px;
+  min-height: 0;
+}
+
+.sec-rows.list-mode .tile-head {
+  display: contents;
+}
+
+.sec-rows.list-mode .row-no {
+  order: 1;
+  flex: none;
+  width: 26px;
+  font-size: 11px;
+}
+
+.sec-rows.list-mode .link-title {
+  order: 2;
+  flex: none;
+  font-size: 15px;
+}
+
+.sec-rows.list-mode .link-desc {
+  order: 3;
+  flex: 1;
+  min-width: 0;
+}
+
+.sec-rows.list-mode .row-domain {
+  order: 4;
+  flex: none;
+  font-size: 11px;
+}
+
+.sec-rows.list-mode .visit-badge {
+  order: 5;
+  margin-top: 0;
+  align-self: baseline;
+}
+
+.sec-rows.list-mode .favorite-btn {
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
 }
 
 .search-stats {
@@ -597,74 +588,68 @@ body {
 .page-body {
   max-width: var(--page-max);
   margin: 0 auto;
-  padding: 26px 32px 48px;
-  display: grid;
-  grid-template-columns: 176px minmax(0, 1fr);
-  gap: 52px;
-  align-items: start;
+  padding: 20px 32px 48px;
 }
 
-/* 目录轨 */
-.rail {
-  position: sticky;
-  top: 20px;
+/* 顶部分类切换 */
+.cat-tabs,
+.index {
+  max-width: var(--page-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
 }
 
-.rail-label {
-  font-size: 10px;
-  letter-spacing: .18em;
-  color: var(--ink-3);
-  text-transform: uppercase;
-  margin-bottom: 8px;
-  padding-left: 17px;
-}
-
-.rail-nav {
-  display: flex;
-  flex-direction: column;
-  border-left: 1px solid var(--hairline);
-}
-
-.rail-item {
-  position: relative;
+.cat-tabs {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  margin-left: -1px;
-  padding: 6px 8px 6px 17px;
-  border-left: 2px solid transparent;
-  font-size: 13.5px;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--hairline);
+  margin-bottom: 22px;
+}
+
+.cat-tab {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 10px 2px 11px;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--ink-2);
   text-decoration: none;
   cursor: pointer;
   transition: color .15s var(--ease), border-color .15s var(--ease);
 }
 
-.rail-item .n {
+.cat-tab .n {
   font-family: var(--mono);
   font-size: 10.5px;
   color: var(--ink-3);
 }
 
-.rail-item:hover {
+.cat-tab:hover {
   color: var(--ink);
 }
 
-.rail-item.active {
+.cat-tab.active {
   color: var(--green);
   font-weight: 600;
-  border-left-color: var(--green);
+  border-bottom-color: var(--green);
 }
 
-.rail-item.active .n {
+.cat-tab.active .n {
   color: var(--green);
 }
 
-.rail-sep {
-  height: 1px;
+.tab-sep {
+  width: 1px;
+  height: 14px;
   background: var(--hairline);
-  margin: 7px 0 7px 16px;
+  align-self: center;
 }
 
 /* ============================================================
@@ -720,8 +705,9 @@ body {
 }
 
 .sec-rows {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(212px, 1fr));
+  gap: 10px;
 }
 
 /* ============================================================
@@ -729,28 +715,46 @@ body {
    ============================================================ */
 .link-card {
   position: relative;
-  border-bottom: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, .30);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border: 1px solid rgba(28, 26, 23, .10);
+  border-radius: 8px;
+  transition: border-color .15s var(--ease), background .15s var(--ease),
+    box-shadow .15s var(--ease), transform .15s var(--ease);
+}
+
+.link-card:hover {
+  background: rgba(255, 255, 255, .58);
+  border-color: var(--ink-3);
+  box-shadow: 0 2px 12px rgba(28, 26, 23, .07);
+}
+
+.link-card:active {
+  transform: scale(.99);
 }
 
 .link-card a {
   display: flex;
-  align-items: baseline;
-  gap: 14px;
-  padding: 13px 38px 13px 2px;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  min-height: 104px;
   text-decoration: none;
   color: inherit;
-  transition: background .15s var(--ease);
 }
 
-.link-card a:hover {
-  background: var(--paper-hi);
+.tile-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
 }
 
 .row-no {
-  flex: none;
-  width: 26px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--ink-3);
   transition: color .15s var(--ease);
 }
@@ -759,33 +763,31 @@ body {
   color: var(--green);
 }
 
-.row-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
+.row-domain {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .link-title {
-  flex: none;
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 600;
   letter-spacing: .005em;
   color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color .15s var(--ease);
 }
 
 .link-card a:hover .link-title {
   color: var(--green);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
 }
 
 .link-desc {
-  flex: 1;
-  min-width: 0;
   font-size: 12.5px;
   color: var(--ink-3);
   white-space: nowrap;
@@ -793,16 +795,10 @@ body {
   text-overflow: ellipsis;
 }
 
-.row-domain {
-  flex: none;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: var(--ink-3);
-}
-
 /* 访问次数 */
 .visit-badge {
-  flex: none;
+  align-self: flex-start;
+  margin-top: 5px;
   font-family: var(--mono);
   font-size: 10.5px;
   color: var(--ink-3);
@@ -810,16 +806,14 @@ body {
 }
 
 .visit-badge::before {
-  content: '·';
-  margin-right: 6px;
+  content: '· ';
 }
 
 /* 收藏 */
 .favorite-btn {
   position: absolute;
-  top: 50%;
-  right: 8px;
-  transform: translateY(-50%);
+  top: 7px;
+  right: 7px;
   z-index: 2;
   width: 26px;
   height: 26px;
@@ -1260,55 +1254,41 @@ body {
 /* ============================================================
    响应式
    ============================================================ */
+@media (max-width: 640px) {
+  .sec-rows {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .sec-rows {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 900px) {
   .page-body {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    padding-top: 18px;
+    padding-top: 16px;
   }
 
-  .rail {
-    position: static;
-    margin-bottom: 22px;
-  }
-
-  .rail-label {
-    display: none;
-  }
-
-  .rail-nav {
-    flex-direction: row;
-    align-items: center;
-    gap: 2px;
-    border-left: none;
-    border-bottom: 1px solid var(--hairline);
+  .cat-tabs {
+    flex-wrap: nowrap;
     overflow-x: auto;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    gap: 18px;
+    mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent 100%);
   }
 
-  .rail-nav::-webkit-scrollbar {
+  .cat-tabs::-webkit-scrollbar {
     display: none;
   }
 
-  .rail-item {
-    margin-left: 0;
-    padding: 9px 12px;
-    border-left: none;
-    border-bottom: 2px solid transparent;
+  .cat-tab {
+    scroll-snap-align: start;
     white-space: nowrap;
-    gap: 6px;
-  }
-
-  .rail-item.active {
-    border-bottom-color: var(--green);
-  }
-
-  .rail-sep {
-    width: 1px;
-    height: 16px;
-    margin: 0 6px;
-    flex: none;
   }
 }
 
@@ -1361,50 +1341,58 @@ body {
     padding: 16px 16px 40px;
   }
 
-  /* 行式布局在窄屏改为两行 */
   .link-card a {
-    align-items: flex-start;
-    gap: 10px;
-    padding: 12px 36px 12px 2px;
-  }
-
-  .row-no {
-    padding-top: 2px;
-  }
-
-  .row-main {
-    flex-direction: column;
-    gap: 1px;
+    min-height: 0;
+    padding: 11px 12px;
   }
 
   .link-title {
-    font-size: 14.5px;
+    font-size: 14px;
   }
 
   .link-desc {
     font-size: 12px;
-    white-space: normal;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
   }
 
-  .row-domain {
+  /* 列表排列：窄屏编号在左、名称与描述折行在右，域名收起 */
+  .sec-rows.list-mode .link-card a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "no    title"
+      "no    desc"
+      "badge badge";
+    align-items: baseline;
+    column-gap: 10px;
+    row-gap: 1px;
+    padding: 12px 36px 12px 2px;
+  }
+
+  .sec-rows.list-mode .row-no {
+    grid-area: no;
+    width: auto;
+    padding-top: 2px;
+  }
+
+  .sec-rows.list-mode .link-title {
+    grid-area: title;
+    flex: none;
+    font-size: 14.5px;
+  }
+
+  .sec-rows.list-mode .link-desc {
+    grid-area: desc;
+    flex: none;
+    font-size: 12.5px;
+  }
+
+  .sec-rows.list-mode .row-domain {
     display: none;
   }
 
-  /* 网格排列：窄屏降为两列，域名行保留 */
-  .sec-rows.grid-mode {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .sec-rows.grid-mode .row-domain {
-    display: block;
-  }
-
-  .sec-rows.grid-mode .link-card a {
-    min-height: 0;
-    padding: 11px 12px;
+  .sec-rows.list-mode .visit-badge {
+    grid-area: badge;
+    margin-top: 3px;
   }
 
   .favorite-btn {
@@ -1422,12 +1410,6 @@ body {
 
   .footer-inner {
     padding: 14px 16px 66px;
-  }
-}
-
-@media (max-width: 560px) {
-  .sec-rows.grid-mode {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1479,10 +1461,10 @@ body {
     <div class="minibar-inner">
       <span class="minibar-brand"><span class="seal-mini">计</span><span class="brand-text">计软智常用网址</span></span>
       <nav class="minibar-links">
-        <a href="#sec-academic" onclick="ensureAllView()">学术</a>
-        <a href="#sec-service" onclick="ensureAllView()">服务</a>
-        <a href="#sec-resource" onclick="ensureAllView()">资源</a>
-        <a href="#sec-graduate" onclick="ensureAllView()">研究生</a>
+        <a onclick="switchCat('academic')">学术</a>
+        <a onclick="switchCat('service')">服务</a>
+        <a onclick="switchCat('resource')">资源</a>
+        <a onclick="switchCat('graduate')">研究生</a>
         <a href="./old.html" onclick="try{localStorage.setItem('seucseweb_version','old')}catch(e){}">旧版</a>
       </nav>
     </div>
@@ -1535,21 +1517,17 @@ body {
     </div>
   </div>
 
-  <!-- 主体：目录轨 + 索引 -->
-  <div class="page-body">
-    <aside class="rail">
-      <p class="rail-label">目录 Index</p>
-      <nav class="rail-nav" id="railNav">
-        <a class="rail-item active" data-rail="all" onclick="railAll(this)">全部<span class="n">21</span></a>
-        <a class="rail-item" data-rail="academic" href="#sec-academic" onclick="railCategory(this)">学术<span class="n">5</span></a>
-        <a class="rail-item" data-rail="service" href="#sec-service" onclick="railCategory(this)">服务<span class="n">7</span></a>
-        <a class="rail-item" data-rail="resource" href="#sec-resource" onclick="railCategory(this)">资源<span class="n">7</span></a>
-        <a class="rail-item" data-rail="graduate" href="#sec-graduate" onclick="railCategory(this)">研究生<span class="n">2</span></a>
-        <div class="rail-sep"></div>
-        <a class="rail-item" data-rail="favorite" onclick="filterCategory('favorite'); railMark(this)">收藏<span class="n">★</span></a>
-        <a class="rail-item" data-rail="recent" onclick="filterCategory('recent'); railMark(this)">最近<span class="n">↺</span></a>
-      </nav>
-    </aside>
+  <!-- 顶部分类切换（旧版交互：过滤视图） -->
+  <div class="cat-tabs" id="catTabs">
+    <a class="cat-tab active" data-tab="all" onclick="switchCat('all')">全部<span class="n">21</span></a>
+    <a class="cat-tab" data-tab="academic" onclick="switchCat('academic')">学术<span class="n">5</span></a>
+    <a class="cat-tab" data-tab="service" onclick="switchCat('service')">服务<span class="n">7</span></a>
+    <a class="cat-tab" data-tab="resource" onclick="switchCat('resource')">资源<span class="n">7</span></a>
+    <a class="cat-tab" data-tab="graduate" onclick="switchCat('graduate')">研究生<span class="n">2</span></a>
+    <span class="tab-sep"></span>
+    <a class="cat-tab" data-tab="favorite" onclick="switchCat('favorite')">收藏<span class="n">★</span></a>
+    <a class="cat-tab" data-tab="recent" onclick="switchCat('recent')">最近<span class="n">↺</span></a>
+  </div>
 
   <!-- 链接网格 -->
   <main class="index" id="links-container">
@@ -1566,12 +1544,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://www.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">01</span>
-        <span class="row-main">
-          <span class="link-title">东南大学</span>
-          <span class="link-desc">东南大学官方网站</span>
+        <span class="tile-head">
+          <span class="row-no">01</span>
+          <span class="row-domain">seu.edu.cn</span>
         </span>
-        <span class="row-domain">seu.edu.cn</span>
+        <span class="link-title">东南大学</span>
+        <span class="link-desc">东南大学官方网站</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="academic">
@@ -1579,12 +1557,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://cs.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">02</span>
-        <span class="row-main">
-          <span class="link-title">计算机学院</span>
-          <span class="link-desc">计算机科学与工程学院官网</span>
+        <span class="tile-head">
+          <span class="row-no">02</span>
+          <span class="row-domain">cs.seu.edu.cn</span>
         </span>
-        <span class="row-domain">cs.seu.edu.cn</span>
+        <span class="link-title">计算机学院</span>
+        <span class="link-desc">计算机科学与工程学院官网</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="academic">
@@ -1592,12 +1570,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://jwc.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">03</span>
-        <span class="row-main">
-          <span class="link-title">教务处</span>
-          <span class="link-desc">教学事务管理</span>
+        <span class="tile-head">
+          <span class="row-no">03</span>
+          <span class="row-domain">jwc.seu.edu.cn</span>
         </span>
-        <span class="row-domain">jwc.seu.edu.cn</span>
+        <span class="link-title">教务处</span>
+        <span class="link-desc">教学事务管理</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="academic">
@@ -1605,12 +1583,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://phylab.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">04</span>
-        <span class="row-main">
-          <span class="link-title">物理实验中心</span>
-          <span class="link-desc">物理实验教学平台</span>
+        <span class="tile-head">
+          <span class="row-no">04</span>
+          <span class="row-domain">phylab.seu.edu.cn</span>
         </span>
-        <span class="row-domain">phylab.seu.edu.cn</span>
+        <span class="link-title">物理实验中心</span>
+        <span class="link-desc">物理实验教学平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="academic">
@@ -1618,12 +1596,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="http://newxk.urp.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">05</span>
-        <span class="row-main">
-          <span class="link-title">选课系统</span>
-          <span class="link-desc">课程选择与管理</span>
+        <span class="tile-head">
+          <span class="row-no">05</span>
+          <span class="row-domain">newxk.urp.seu.edu.cn</span>
         </span>
-        <span class="row-domain">newxk.urp.seu.edu.cn</span>
+        <span class="link-title">选课系统</span>
+        <span class="link-desc">课程选择与管理</span>
       </a>
     </div>
     </div>
@@ -1642,12 +1620,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="http://ehall.seu.edu.cn/new/index.html" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">01</span>
-        <span class="row-main">
-          <span class="link-title">办事大厅</span>
-          <span class="link-desc">网上办事服务平台</span>
+        <span class="tile-head">
+          <span class="row-no">01</span>
+          <span class="row-domain">ehall.seu.edu.cn</span>
         </span>
-        <span class="row-domain">ehall.seu.edu.cn</span>
+        <span class="link-title">办事大厅</span>
+        <span class="link-desc">网上办事服务平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1655,12 +1633,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="http://i.seu.edu.cn/index.html#/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">02</span>
-        <span class="row-main">
-          <span class="link-title">信息平台</span>
-          <span class="link-desc">东大综合信息服务</span>
+        <span class="tile-head">
+          <span class="row-no">02</span>
+          <span class="row-domain">i.seu.edu.cn</span>
         </span>
-        <span class="row-domain">i.seu.edu.cn</span>
+        <span class="link-title">信息平台</span>
+        <span class="link-desc">东大综合信息服务</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1668,12 +1646,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://todo.seu.edu.cn/h5/pages/multipleRoles/MultipleRoles" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">03</span>
-        <span class="row-main">
-          <span class="link-title">数智东南</span>
-          <span class="link-desc">校园资讯平台</span>
+        <span class="tile-head">
+          <span class="row-no">03</span>
+          <span class="row-domain">todo.seu.edu.cn</span>
         </span>
-        <span class="row-domain">todo.seu.edu.cn</span>
+        <span class="link-title">数智东南</span>
+        <span class="link-desc">校园资讯平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1681,12 +1659,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://cwc.seu.edu.cn/main.psp" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">04</span>
-        <span class="row-main">
-          <span class="link-title">财务处</span>
-          <span class="link-desc">财务管理与查询</span>
+        <span class="tile-head">
+          <span class="row-no">04</span>
+          <span class="row-domain">cwc.seu.edu.cn</span>
         </span>
-        <span class="row-domain">cwc.seu.edu.cn</span>
+        <span class="link-title">财务处</span>
+        <span class="link-desc">财务管理与查询</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1694,12 +1672,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://labor.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">05</span>
-        <span class="row-main">
-          <span class="link-title">劳动教育</span>
-          <span class="link-desc">劳动教育与实践平台</span>
+        <span class="tile-head">
+          <span class="row-no">05</span>
+          <span class="row-domain">labor.seu.edu.cn</span>
         </span>
-        <span class="row-domain">labor.seu.edu.cn</span>
+        <span class="link-title">劳动教育</span>
+        <span class="link-desc">劳动教育与实践平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1707,12 +1685,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://jwc.seu.edu.cn/xspt/list.htm" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">06</span>
-        <span class="row-main">
-          <span class="link-title">教务处办事平台</span>
-          <span class="link-desc">学生事务办理</span>
+        <span class="tile-head">
+          <span class="row-no">06</span>
+          <span class="row-domain">jwc.seu.edu.cn</span>
         </span>
-        <span class="row-domain">jwc.seu.edu.cn</span>
+        <span class="link-title">教务处办事平台</span>
+        <span class="link-desc">学生事务办理</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="service">
@@ -1720,12 +1698,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://auth.seu.edu.cn/dist/#/dist/main/login?service=http%3A%2F%2Fdekt.seu.edu.cn%2Fzhtw%2F%3Ft_s%3D1697987944225" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">07</span>
-        <span class="row-main">
-          <span class="link-title">第二课堂</span>
-          <span class="link-desc">课外活动管理平台</span>
+        <span class="tile-head">
+          <span class="row-no">07</span>
+          <span class="row-domain">auth.seu.edu.cn</span>
         </span>
-        <span class="row-domain">auth.seu.edu.cn</span>
+        <span class="link-title">第二课堂</span>
+        <span class="link-desc">课外活动管理平台</span>
       </a>
     </div>
     </div>
@@ -1744,12 +1722,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="http://www.lib.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">01</span>
-        <span class="row-main">
-          <span class="link-title">图书馆</span>
-          <span class="link-desc">学术资源与文献检索</span>
+        <span class="tile-head">
+          <span class="row-no">01</span>
+          <span class="row-domain">lib.seu.edu.cn</span>
         </span>
-        <span class="row-domain">lib.seu.edu.cn</span>
+        <span class="link-title">图书馆</span>
+        <span class="link-desc">学术资源与文献检索</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1757,12 +1735,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://pan.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">02</span>
-        <span class="row-main">
-          <span class="link-title">文档云</span>
-          <span class="link-desc">云端文档存储服务</span>
+        <span class="tile-head">
+          <span class="row-no">02</span>
+          <span class="row-domain">pan.seu.edu.cn</span>
         </span>
-        <span class="row-domain">pan.seu.edu.cn</span>
+        <span class="link-title">文档云</span>
+        <span class="link-desc">云端文档存储服务</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1770,12 +1748,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://mail.seu.edu.cn" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">03</span>
-        <span class="row-main">
-          <span class="link-title">东大邮箱</span>
-          <span class="link-desc">官方邮件服务</span>
+        <span class="tile-head">
+          <span class="row-no">03</span>
+          <span class="row-domain">mail.seu.edu.cn</span>
         </span>
-        <span class="row-domain">mail.seu.edu.cn</span>
+        <span class="link-title">东大邮箱</span>
+        <span class="link-desc">官方邮件服务</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1783,12 +1761,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://cvs.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">04</span>
-        <span class="row-main">
-          <span class="link-title">云课堂</span>
-          <span class="link-desc">在线学习平台</span>
+        <span class="tile-head">
+          <span class="row-no">04</span>
+          <span class="row-domain">cvs.seu.edu.cn</span>
         </span>
-        <span class="row-domain">cvs.seu.edu.cn</span>
+        <span class="link-title">云课堂</span>
+        <span class="link-desc">在线学习平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1796,12 +1774,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://nic.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">05</span>
-        <span class="row-main">
-          <span class="link-title">网络中心</span>
-          <span class="link-desc">网络与信息中心</span>
+        <span class="tile-head">
+          <span class="row-no">05</span>
+          <span class="row-domain">nic.seu.edu.cn</span>
         </span>
-        <span class="row-domain">nic.seu.edu.cn</span>
+        <span class="link-title">网络中心</span>
+        <span class="link-desc">网络与信息中心</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1809,12 +1787,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://tommy.seu.edu.cn/filebrowser/login?redirect=%2Ffiles%2F" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">06</span>
-        <span class="row-main">
-          <span class="link-title">薪火计划</span>
-          <span class="link-desc">学习资源共享平台</span>
+        <span class="tile-head">
+          <span class="row-no">06</span>
+          <span class="row-domain">tommy.seu.edu.cn</span>
         </span>
-        <span class="row-domain">tommy.seu.edu.cn</span>
+        <span class="link-title">薪火计划</span>
+        <span class="link-desc">学习资源共享平台</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="resource">
@@ -1822,12 +1800,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://seucseweb.github.io/GPA-Calculator/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">07</span>
-        <span class="row-main">
-          <span class="link-title">绩点计算器</span>
-          <span class="link-desc">GPA计算工具</span>
+        <span class="tile-head">
+          <span class="row-no">07</span>
+          <span class="row-domain">seucseweb.github.io</span>
         </span>
-        <span class="row-domain">seucseweb.github.io</span>
+        <span class="link-title">绩点计算器</span>
+        <span class="link-desc">GPA计算工具</span>
       </a>
     </div>
     </div>
@@ -1846,12 +1824,12 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://seugs.seu.edu.cn/" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">01</span>
-        <span class="row-main">
-          <span class="link-title">研究生院</span>
-          <span class="link-desc">东南大学研究生院官网</span>
+        <span class="tile-head">
+          <span class="row-no">01</span>
+          <span class="row-domain">seugs.seu.edu.cn</span>
         </span>
-        <span class="row-domain">seugs.seu.edu.cn</span>
+        <span class="link-title">研究生院</span>
+        <span class="link-desc">东南大学研究生院官网</span>
       </a>
     </div>
     <div class="link-card fade-in-up" data-category="graduate">
@@ -1859,18 +1837,17 @@ body {
         <i class="fas fa-star"></i>
       </button>
       <a href="https://yjsxk.urp.seu.edu.cn/yjsxkapp/sys/xsxkapp/index.html" target="_blank" rel="noopener" onclick="recordVisit(this)">
-        <span class="row-no">02</span>
-        <span class="row-main">
-          <span class="link-title">研究生选课</span>
-          <span class="link-desc">研究生课程选择与管理</span>
+        <span class="tile-head">
+          <span class="row-no">02</span>
+          <span class="row-domain">yjsxk.urp.seu.edu.cn</span>
         </span>
-        <span class="row-domain">yjsxk.urp.seu.edu.cn</span>
+        <span class="link-title">研究生选课</span>
+        <span class="link-desc">研究生课程选择与管理</span>
       </a>
     </div>
     </div>
   </section>
   </main>
-  </div>
 
   <!-- 浮动按钮 -->
   <div class="floating-btns">
@@ -2060,11 +2037,9 @@ body {
       document.getElementById('searchInput').focus();
     }
 
-    // 分类筛选：收藏 / 最近 两种视图，其余为锚点浏览
+    // 分类筛选（兼容入口）
     function filterCategory(category) {
-      currentCategory = (category === 'favorite' || category === 'recent') ? category : 'all';
-      document.getElementById('searchInput').value = '';
-      performSearch();
+      switchCat(category);
     }
 
     // 收藏功能
@@ -2163,10 +2138,22 @@ body {
       onScroll();
     }
 
-    // 隐藏没有可见行的分区
+    // 顶部分类切换（旧版交互：过滤视图）
+    function switchCat(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-tab').forEach(t =>
+        t.classList.toggle('active', t.dataset.tab === cat)
+      );
+      document.getElementById('searchInput').value = '';
+      performSearch();
+    }
+
+    // 隐藏不可见分区
     function updateSectionVisibility() {
       document.querySelectorAll('.index-section').forEach(sec => {
-        const any = Array.prototype.some.call(
+        const catOK = ['all', 'favorite', 'recent'].includes(currentCategory) ||
+                      currentCategory === sec.dataset.section;
+        const any = catOK && Array.prototype.some.call(
           sec.querySelectorAll('.link-card'),
           c => c.style.display !== 'none'
         );
@@ -2174,52 +2161,27 @@ body {
       });
     }
 
-    // 目录轨状态
-    function railMark(el) {
-      document.querySelectorAll('.rail-item').forEach(i => i.classList.remove('active'));
-      if (el) el.classList.add('active');
-    }
-
-    function railAll(el) {
-      filterCategory('all');
-      railMark(el);
-      scrollToTop();
-    }
-
-    // 从收藏/最近视图离开，恢复全部分区（修复点锚点后页面空白）
-    function ensureAllView() {
-      if (currentCategory !== 'all') {
-        filterCategory('all');
-      }
-    }
-
-    // 目录轨分类锚点：先复位视图再跳转
-    function railCategory(el) {
-      ensureAllView();
-      railMark(el);
-    }
-
-    // 列表/网格排列切换
+    // 列表/网格排列切换（网格为默认，偏好存 localStorage）
     function applyLayout(mode) {
-      const grid = mode === 'grid';
-      document.querySelectorAll('.sec-rows').forEach(r => r.classList.toggle('grid-mode', grid));
+      const list = mode === 'list';
+      document.querySelectorAll('.sec-rows').forEach(r => r.classList.toggle('list-mode', list));
       const btn = document.getElementById('layoutToggle');
       if (btn) {
-        btn.innerHTML = grid
-          ? '<i class="fas fa-list"></i>'
-          : '<i class="fas fa-table-cells-large"></i>';
-        btn.title = grid ? '切换为列表排列' : '切换为网格排列';
+        btn.innerHTML = list
+          ? '<i class="fas fa-table-cells-large"></i>'
+          : '<i class="fas fa-list"></i>';
+        btn.title = list ? '切换为网格排列' : '切换为列表排列';
       }
     }
 
     function toggleLayout() {
-      let next = 'list';
+      let next = 'grid';
       try {
         next = (localStorage.getItem('seucseweb_layout') || 'grid') === 'grid' ? 'list' : 'grid';
         localStorage.setItem('seucseweb_layout', next);
       } catch (e) {}
       applyLayout(next);
-      showToast(next === 'grid' ? '已切换为网格排列' : '已切换为列表排列');
+      showToast(next === 'list' ? '已切换为列表排列' : '已切换为网格排列');
     }
 
     function isRecent(card) {
