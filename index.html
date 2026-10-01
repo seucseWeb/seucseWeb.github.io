@@ -473,6 +473,103 @@ body {
   color: var(--green);
 }
 
+/* 列表/网格排列切换 */
+.layout-toggle {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line-soft);
+  border-radius: 7px;
+  background: var(--paper-hi);
+  color: var(--ink-2);
+  cursor: pointer;
+  font-size: .78rem;
+  transition: color .15s var(--ease), border-color .15s var(--ease);
+}
+
+.layout-toggle:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+/* 列表排列模式（清单行，一行一个；网格为默认） */
+.sec-rows.list-mode {
+  display: flex;
+  flex-direction: column;
+}
+
+.sec-rows.list-mode .link-card {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
+  border-bottom: 1px solid var(--hairline);
+  border-radius: 0;
+}
+
+.sec-rows.list-mode .link-card:hover {
+  background: var(--paper-hi);
+  border-color: var(--ink-3);
+  box-shadow: none;
+}
+
+.sec-rows.list-mode .link-card:active {
+  transform: none;
+}
+
+/* 编号与域名并回主行：摊平 tile-head，用 order 重排为「编号 · 名称 · 描述 · 域名」 */
+.sec-rows.list-mode .link-card a {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 14px;
+  padding: 13px 38px 13px 2px;
+  min-height: 0;
+}
+
+.sec-rows.list-mode .tile-head {
+  display: contents;
+}
+
+.sec-rows.list-mode .row-no {
+  order: 1;
+  flex: none;
+  width: 26px;
+  font-size: 11px;
+}
+
+.sec-rows.list-mode .link-title {
+  order: 2;
+  flex: none;
+  font-size: 15px;
+}
+
+.sec-rows.list-mode .link-desc {
+  order: 3;
+  flex: 1;
+  min-width: 0;
+}
+
+.sec-rows.list-mode .row-domain {
+  order: 4;
+  flex: none;
+  font-size: 11px;
+}
+
+.sec-rows.list-mode .visit-badge {
+  order: 5;
+  margin-top: 0;
+  align-self: baseline;
+}
+
+.sec-rows.list-mode .favorite-btn {
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+}
+
 .search-stats {
   flex: none;
   margin-left: auto;
@@ -1257,6 +1354,47 @@ body {
     font-size: 12px;
   }
 
+  /* 列表排列：窄屏编号在左、名称与描述折行在右，域名收起 */
+  .sec-rows.list-mode .link-card a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "no    title"
+      "no    desc"
+      "badge badge";
+    align-items: baseline;
+    column-gap: 10px;
+    row-gap: 1px;
+    padding: 12px 36px 12px 2px;
+  }
+
+  .sec-rows.list-mode .row-no {
+    grid-area: no;
+    width: auto;
+    padding-top: 2px;
+  }
+
+  .sec-rows.list-mode .link-title {
+    grid-area: title;
+    flex: none;
+    font-size: 14.5px;
+  }
+
+  .sec-rows.list-mode .link-desc {
+    grid-area: desc;
+    flex: none;
+    font-size: 12.5px;
+  }
+
+  .sec-rows.list-mode .row-domain {
+    display: none;
+  }
+
+  .sec-rows.list-mode .visit-badge {
+    grid-area: badge;
+    margin-top: 3px;
+  }
+
   .favorite-btn {
     opacity: 1;
   }
@@ -1370,6 +1508,9 @@ body {
       <p class="search-stats" id="searchStats" style="display: none;">
         找到 <span id="searchCount">0</span> 个相关站点
       </p>
+      <button class="layout-toggle" id="layoutToggle" onclick="toggleLayout()" title="切换排列方式">
+        <i class="fas fa-table-cells-large"></i>
+      </button>
       <a class="ver-switch" href="./old.html" onclick="try{localStorage.setItem('seucseweb_version','old')}catch(e){}" title="切换至旧版">
         <i class="fas fa-clock-rotate-left"></i>旧版
       </a>
@@ -1787,6 +1928,9 @@ body {
 
       initializeFavorites();
       renderVisitBadges();
+      let savedLayout = 'grid';
+      try { savedLayout = localStorage.getItem('seucseweb_layout') || 'grid'; } catch (e) {}
+      applyLayout(savedLayout);
       applyCustomOrder();
       setupMinibar();
       updateTime();
@@ -2015,6 +2159,29 @@ body {
         );
         sec.style.display = any ? '' : 'none';
       });
+    }
+
+    // 列表/网格排列切换（网格为默认，偏好存 localStorage）
+    function applyLayout(mode) {
+      const list = mode === 'list';
+      document.querySelectorAll('.sec-rows').forEach(r => r.classList.toggle('list-mode', list));
+      const btn = document.getElementById('layoutToggle');
+      if (btn) {
+        btn.innerHTML = list
+          ? '<i class="fas fa-table-cells-large"></i>'
+          : '<i class="fas fa-list"></i>';
+        btn.title = list ? '切换为网格排列' : '切换为列表排列';
+      }
+    }
+
+    function toggleLayout() {
+      let next = 'grid';
+      try {
+        next = (localStorage.getItem('seucseweb_layout') || 'grid') === 'grid' ? 'list' : 'grid';
+        localStorage.setItem('seucseweb_layout', next);
+      } catch (e) {}
+      applyLayout(next);
+      showToast(next === 'list' ? '已切换为列表排列' : '已切换为网格排列');
     }
 
     function isRecent(card) {
