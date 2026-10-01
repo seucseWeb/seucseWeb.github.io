@@ -1903,8 +1903,8 @@ body {
 
       initializeFavorites();
       renderVisitBadges();
-      let savedLayout = 'list';
-      try { savedLayout = localStorage.getItem('seucseweb_layout') || 'list'; } catch (e) {}
+      let savedLayout = 'grid';
+      try { savedLayout = localStorage.getItem('seucseweb_layout') || 'grid'; } catch (e) {}
       applyLayout(savedLayout);
       applyCustomOrder();
       setupMinibar();
@@ -2165,9 +2165,9 @@ body {
     }
 
     function toggleLayout() {
-      let next = 'grid';
+      let next = 'list';
       try {
-        next = (localStorage.getItem('seucseweb_layout') || 'list') === 'grid' ? 'list' : 'grid';
+        next = (localStorage.getItem('seucseweb_layout') || 'grid') === 'grid' ? 'list' : 'grid';
         localStorage.setItem('seucseweb_layout', next);
       } catch (e) {}
       applyLayout(next);
