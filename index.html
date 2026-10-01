@@ -66,7 +66,14 @@ body {
   font-size: 14px;
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
+  background-color: var(--paper);
+  /* 纸张细纹 + 稿纸格线 + 品牌色渐晕（自上而下） */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.28'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(0deg, rgba(28, 26, 23, .025) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(28, 26, 23, .025) 0 1px, transparent 1px 26px),
+    radial-gradient(1100px 460px at 16% -6%, rgba(11, 110, 79, .06), transparent 62%),
+    radial-gradient(900px 420px at 88% -10%, rgba(194, 64, 42, .045), transparent 62%);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
@@ -168,10 +175,31 @@ body {
    报头
    ============================================================ */
 .masthead {
+  position: relative;
+  overflow: hidden;
   border-bottom: 2px solid var(--rule);
 }
 
+/* 报头「東」字水印 */
+.masthead::before {
+  content: '東';
+  position: absolute;
+  right: 1.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--serif);
+  font-weight: 900;
+  font-size: clamp(120px, 14vw, 185px);
+  line-height: 1;
+  color: rgba(28, 26, 23, .03);
+  -webkit-text-stroke: 1.2px rgba(28, 26, 23, .075);
+  pointer-events: none;
+  user-select: none;
+}
+
 .mast-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--page-max);
   margin: 0 auto;
   padding: 44px 32px 26px;
@@ -1205,7 +1233,7 @@ body {
   <!-- 置顶迷你导航（滚动后出现） -->
   <div class="minibar" id="minibar">
     <div class="minibar-inner">
-      <span class="minibar-brand"><span class="seal-mini">印</span><span class="brand-text">计软智常用网址</span></span>
+      <span class="minibar-brand"><span class="seal-mini">计</span><span class="brand-text">计软智常用网址</span></span>
       <nav class="minibar-links">
         <a href="#sec-academic" onclick="ensureAllView()">学术</a>
         <a href="#sec-service" onclick="ensureAllView()">服务</a>
